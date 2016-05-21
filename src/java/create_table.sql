@@ -99,6 +99,73 @@ CREATE TABLE bills (
                   CONSTRAINT positive_total CHECK (total > 0)
 );
 
+INSERT INTO rooms 
+VALUES
+   (1, 101, 'Ocean View', 'Single King'),
+   (1, 102, 'Ocean View', 'Double Queen'),
+   (1, 103, 'Ocean View', 'Single King'),
+   (1, 104, 'Ocean View', 'Double Queen'),
+   (1, 105, 'Ocean View', 'Single King'),
+   (1, 106, 'Ocean View', 'Double Queen'),
+   (1, 107, 'Pool View', 'Single King'),
+   (1, 108, 'Pool View', 'Double Queen'),
+   (1, 109, 'Pool View', 'Single King'),
+   (1, 110, 'Pool View', 'Double Queen'),
+   (1, 111, 'Pool View', 'Single King'),
+   (1, 112, 'Pool View', 'Double Queen'),
+
+   (2, 201, 'Ocean View', 'Single King'),
+   (2, 202, 'Ocean View', 'Double Queen'),
+   (2, 203, 'Ocean View', 'Single King'),
+   (2, 204, 'Ocean View', 'Double Queen'),
+   (2, 205, 'Ocean View', 'Single King'),
+   (2, 206, 'Ocean View', 'Double Queen'),
+   (2, 207, 'Pool View', 'Single King'),
+   (2, 208, 'Pool View', 'Double Queen'),
+   (2, 209, 'Pool View', 'Single King'),
+   (2, 210, 'Pool View', 'Double Queen'),
+   (2, 211, 'Pool View', 'Single King'),
+   (2, 212, 'Pool View', 'Double Queen'),
+
+   (3, 301, 'Ocean View', 'Single King'),
+   (3, 302, 'Ocean View', 'Double Queen'),
+   (3, 303, 'Ocean View', 'Single King'),
+   (3, 304, 'Ocean View', 'Double Queen'),
+   (3, 305, 'Ocean View', 'Single King'),
+   (3, 306, 'Ocean View', 'Double Queen'),
+   (3, 307, 'Pool View', 'Single King'),
+   (3, 308, 'Pool View', 'Double Queen'),
+   (3, 309, 'Pool View', 'Single King'),
+   (3, 310, 'Pool View', 'Double Queen'),
+   (3, 311, 'Pool View', 'Single King'),
+   (3, 312, 'Pool View', 'Double Queen'),
+
+   (4, 401, 'Ocean View', 'Single King'),
+   (4, 402, 'Ocean View', 'Double Queen'),
+   (4, 403, 'Ocean View', 'Single King'),
+   (4, 404, 'Ocean View', 'Double Queen'),
+   (4, 405, 'Ocean View', 'Single King'),
+   (4, 406, 'Ocean View', 'Double Queen'),
+   (4, 407, 'Pool View', 'Single King'),
+   (4, 408, 'Pool View', 'Double Queen'),
+   (4, 409, 'Pool View', 'Single King'),
+   (4, 410, 'Pool View', 'Double Queen'),
+   (4, 411, 'Pool View', 'Single King'),
+   (4, 412, 'Pool View', 'Double Queen'),
+
+   (5, 501, 'Ocean View', 'Single King'),
+   (5, 502, 'Ocean View', 'Double Queen'),
+   (5, 503, 'Ocean View', 'Single King'),
+   (5, 504, 'Ocean View', 'Double Queen'),
+   (5, 505, 'Ocean View', 'Single King'),
+   (5, 506, 'Ocean View', 'Double Queen'),
+   (5, 507, 'Pool View', 'Single King'),
+   (5, 508, 'Pool View', 'Double Queen'),
+   (5, 509, 'Pool View', 'Single King'),
+   (5, 510, 'Pool View', 'Double Queen'),
+   (5, 511, 'Pool View', 'Single King'),
+   (5, 512, 'Pool View', 'Double Queen');
+
 
 
 
