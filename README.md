@@ -6,7 +6,7 @@ A full stack project that accepts hotel reservations
 
 **In terminal:**
 - ssh to <unix server>.csc.calpoly.edu
-- type “psql -h cslvm74.csc.calpoly.edu -p 5432 -U <username>”
+- type “psql -h cslvm74.csc.calpoly.edu -p 5432 -U \<username\>”
 
 **In NetBeans:**
 - download glassfish 
