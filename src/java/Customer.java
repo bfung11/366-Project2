@@ -24,7 +24,7 @@ import java.util.TimeZone;
 @ManagedBean
 public class Customer implements Serializable {
 
-    private DBConnect dbConnect = new DBConnect();
+    private DBConnection dbConnect = new DBConnection();
     private Integer customerID;
     private String name;
     private String address;
