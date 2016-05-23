@@ -62,7 +62,20 @@ public class Admin {
    }
 
    public void createStaff() {
-
+      try {
+         DBConnection connection = DBConnection();
+         String authQuery = "INSERT INTO authentications " + 
+                            "VALUES (" + username + ", " + password + ")";
+         String staffQuery = "INSERT INTO staff " + 
+                             "VALUES (" + username + ", " + 
+                                          firstName + ", " + 
+                                          lastName + ")"; 
+         connection.executeUpdate(authQuery);
+         connection.executeUpdate(staffQuery);
+      }
+      catch (Exception e) {
+         e.printStackTrace();
+      }
    }
 
    public void setStartDate(String date) {
