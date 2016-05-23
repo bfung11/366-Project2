@@ -20,8 +20,8 @@ public class Admin {
       try {
          DBConnection connection = new DBConnection();
          String query = "UPDATE authentications " + 
-                        "SET password = " + password + " " + 
-                        "WHERE username = admin";
+                        "SET password = '" + password + "' " + 
+                        "WHERE username = 'admin'";
          connection.executeUpdate(query);
       }
       catch (Exception e) {
@@ -62,7 +62,21 @@ public class Admin {
    }
 
    public void createStaff() {
-
+      try {
+         DBConnection connection = new DBConnection();
+         String authQuery = "INSERT INTO authentications " + 
+                            "VALUES (" + "'" + username + "', " + 
+                                         "'" + password + "')";
+         String staffQuery = "INSERT INTO staff " + 
+                             "VALUES (" + "'" + username + "', " + 
+                                          "'" + firstName + "', " + 
+                                          "'" + lastName + "')"; 
+         connection.executeUpdate(authQuery);
+         connection.executeUpdate(staffQuery);
+      }
+      catch (Exception e) {
+         e.printStackTrace();
+      }
    }
 
    public void setStartDate(String date) {
