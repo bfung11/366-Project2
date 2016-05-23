@@ -32,3 +32,19 @@ INSERT INTO reservations
 VALUES
     (DEFAULT, <username>, <floor_num>, <room_num>, <start_date>, 
         <end_date>, <check_in_date>, <check_out_date>);
+
+--Check-in customer given reservation id
+UPDATE reservations
+SET check_in_date = <date>
+WHERE reservation_id = <id>;
+
+--Check out customer given reservation id
+UPDATE reservations
+SET check_out_date = <date>
+WHERE reservation_id = <id>;
+
+--Change admin password 
+UPDATE authentications
+SET password = <new_password>
+WHERE username = 'admin';
+
