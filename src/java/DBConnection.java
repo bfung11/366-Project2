@@ -25,7 +25,7 @@ public class DBConnection {
    }
 
    public ResultSet executeQuery(String query) throws SQLException {
-      Connection con = DBConnection.getConnection();
+      Connection con = getConnection();
 
       if (con == null) {
          throw new SQLException("Can't get database connection");
@@ -40,7 +40,7 @@ public class DBConnection {
    }
     
    public void executeUpdate(String query) throws SQLException {
-      Connection con = DBConnection.getConnection();
+      Connection con = getConnection();
 
       if (con == null) {
          throw new SQLException("Can't get database connection");
