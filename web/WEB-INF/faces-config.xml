@@ -8,19 +8,15 @@
         <managed-bean-class>Selector</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
-     <managed-bean>
-        <managed-bean-name>util</managed-bean-name>
-        <managed-bean-class>Util</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope>
-    </managed-bean>
-    <managed-bean>
-        <managed-bean-name>customer</managed-bean-name>
-        <managed-bean-class>Customer</managed-bean-class>
-        <managed-bean-scope>session</managed-bean-scope>
-    </managed-bean>    
+
     <managed-bean>
         <managed-bean-name>login</managed-bean-name>
         <managed-bean-class>Login</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>admin</managed-bean-name>
+        <managed-bean-class>Admin</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>  
     <navigation-rule>
@@ -28,45 +24,146 @@
             /index.xhtml
         </from-view-id>
         <navigation-case>
-            <from-outcome>success</from-outcome>
-            <to-view-id>start.xhtml</to-view-id>
+            <from-outcome>login</from-outcome>
+            <to-view-id>login.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>register</from-outcome>
+            <to-view-id>register.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule> 
     <navigation-rule>
         <from-view-id>
-            /start.xhtml
+            /admin.xhtml
         </from-view-id>
+        
         <navigation-case>
-            <from-outcome>newCustomer</from-outcome>
-            <to-view-id>newCustomer.xhtml</to-view-id>
+            <from-outcome>listDoctors</from-outcome>
+            <to-view-id>listDoctors.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
-            <from-outcome>listCustomers</from-outcome>
-            <to-view-id>showAllCustomers.xhtml</to-view-id>
+            <from-outcome>newDoctor</from-outcome>
+            <to-view-id>newDoctor.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
-            <from-outcome>findCustomer</from-outcome>
-            <to-view-id>findCustomer.xhtml</to-view-id>
+            <from-outcome>deleteDoctor</from-outcome>
+            <to-view-id>deleteDoctor.xhtml</to-view-id>
         </navigation-case>
         <navigation-case>
-            <from-outcome>deleteCustomer</from-outcome>
-            <to-view-id>deleteCustomer.xhtml</to-view-id>
+            <from-outcome>changeDocPassword</from-outcome>
+            <to-view-id>changeDocPw.xhtml</to-view-id>
+        </navigation-case>
+        
+        
+        <navigation-case>
+            <from-outcome>listTechnicians</from-outcome>
+            <to-view-id>listTechnicians.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>newTechnician</from-outcome>
+            <to-view-id>newTechnician.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>deleteTechnician</from-outcome>
+            <to-view-id>deleteTechnician.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>changeTechPassword</from-outcome>
+            <to-view-id>changeTechPw.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
     
     <navigation-rule>
         <from-view-id>
-            /newCustomer.xhtml
+            /startD.xhtml
         </from-view-id>
+        
         <navigation-case>
-            <from-outcome>main</from-outcome>
-            <to-view-id>start.xhtml</to-view-id>
+            <from-outcome>docViewSchedule</from-outcome>
+            <to-view-id>viewDocSchedule.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>docPrefWorkday</from-outcome>
+            <to-view-id>prefDoc.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>docTimeOff</from-outcome>
+            <to-view-id>timeOffDoc.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>docSickDay</from-outcome>
+            <to-view-id>sickDayDoc.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
     
     <navigation-rule>
         <from-view-id>
-            /findCustomer.xhtml
+            /timeOffDoc.xhtml
+        </from-view-id>
+        <navigation-case>
+            <from-outcome>mainAdministrator</from-outcome>
+            <to-view-id>startA.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>mainTechnician</from-outcome>
+            <to-view-id>startT.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>
+            /startT.xhtml
+        </from-view-id>
+        
+        <navigation-case>
+            <from-outcome>techViewSchedule</from-outcome>
+            <to-view-id>viewTechSchedule.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>techPrefWorkday</from-outcome>
+            <to-view-id>prefTech.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>techTimeOff</from-outcome>
+            <to-view-id>timeOffTech.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>techSickDay</from-outcome>
+            <to-view-id>sickDayTech.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>
+            /newDoctor.xhtml
+        </from-view-id>
+        <navigation-case>
+            <from-outcome>mainAdministrator</from-outcome>
+            <to-view-id>startA.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>mainTechnician</from-outcome>
+            <to-view-id>startT.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>mainDoctor</from-outcome>
+            <to-view-id>startD.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>
+            /newTechnician.xhtml
+        </from-view-id>
+        <navigation-case>
+            <from-outcome>mainAdministrator</from-outcome>
+            <to-view-id>startA.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>
+            /findDoctor.xhtml
         </from-view-id>
         <navigation-case>
             <from-outcome>showCustomer</from-outcome>
@@ -76,15 +173,53 @@
     
     <navigation-rule>
         <from-view-id>
-            /deleteCustomer.xhtml
+            /findTechnician.xhtml
         </from-view-id>
         <navigation-case>
-            <from-outcome>main</from-outcome>
-            <to-view-id>start.xhtml</to-view-id>
+            <from-outcome>showCustomer</from-outcome>
+            <to-view-id>displayCustomer.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
     
+    <navigation-rule>
+        <from-view-id>
+            /deleteDoctor.xhtml
+        </from-view-id>
+        <navigation-case>
+            <from-outcome>mainAdministrator</from-outcome>
+            <to-view-id>startA.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
     
+    <navigation-rule>
+        <from-view-id>
+            /deleteTechnician.xhtml
+        </from-view-id>
+        <navigation-case>
+            <from-outcome>mainAdministrator</from-outcome>
+            <to-view-id>startA.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+        <navigation-rule>
+        <from-view-id>
+            /changeDocPw.xhtml
+        </from-view-id>
+        <navigation-case>
+            <from-outcome>mainAdministrator</from-outcome>
+            <to-view-id>startA.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+        <navigation-rule>
+        <from-view-id>
+            /changeTechPw.xhtml
+        </from-view-id>
+        <navigation-case>
+            <from-outcome>mainAdministrator</from-outcome>
+            <to-view-id>startA.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
     
     
     
