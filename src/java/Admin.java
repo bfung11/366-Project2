@@ -16,8 +16,17 @@ public class Admin {
    private int roomNumber;
    private int price;
 
-   public void updatePassword(String password) {
-      DBConnection.updatePassword(password);
+   public void updateAdminPassword(String password) {
+      try {
+         DBConnection connection = new DBConnection();
+         String query = "UPDATE authentications " + 
+                        "SET password = " + password + " " + 
+                        "WHERE username = admin";
+         conneciton.executeUpdate(query);
+      }
+      catch (Exception e) {
+         e.printStackTrace();
+      }
    }
 
    public void setUsername(String username) {
