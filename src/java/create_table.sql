@@ -99,6 +99,7 @@ CREATE TABLE bills (
                   CONSTRAINT positive_total CHECK (total > 0)
 );
 
+--Initialize rooms table
 INSERT INTO rooms 
 VALUES
    (1, 101, 'Ocean View', 'Single King'),
@@ -165,6 +166,11 @@ VALUES
    (5, 510, 'Pool View', 'Double Queen'),
    (5, 511, 'Pool View', 'Single King'),
    (5, 512, 'Pool View', 'Double Queen');
+
+--Default add admin
+INSERT INTO authentications
+VALUES
+   ('admin', 'admin');
 
 
 
