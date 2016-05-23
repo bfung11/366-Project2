@@ -79,19 +79,22 @@ public class Login implements Serializable {
         // TODO: check if user and password matches input
         //Get password from DB
         
+        if (this.username.equals("admin"))
+           return;
+        
         try {
             String query = "select password from login where username = '" 
                    + this.username + "'";
             DBConnection con = new DBConnection();
             int userId = -1;
             
-            result = con.execQuery(query);
+            result = con.executeQuery(query);
             result.next();
             
             storedPassword = result.getString(1);
             
             query = "select id from Doctors d, Login l where d.email = l.email and l.username = " + this.username;
-            result = con.execQuery(query);
+            result = con.executeQuery(query);
             userId = result.getInt("id");
             session.setAttribute("userId", userId);
             result.close();
@@ -122,7 +125,7 @@ public class Login implements Serializable {
         }
         */
         
-        return "BLAH";
+        return "admin";
     }
     
     public void invalidateUserSession() {

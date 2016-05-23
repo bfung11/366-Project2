@@ -22,7 +22,7 @@ public class Admin {
          String query = "UPDATE authentications " + 
                         "SET password = " + password + " " + 
                         "WHERE username = admin";
-         conneciton.executeUpdate(query);
+         connection.executeUpdate(query);
       }
       catch (Exception e) {
          e.printStackTrace();

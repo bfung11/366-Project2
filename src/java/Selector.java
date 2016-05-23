@@ -17,7 +17,7 @@ import javax.faces.bean.SessionScoped;
 @ManagedBean
 @SessionScoped
 public class Selector implements Serializable {
-    private String[] adminOptions = {"Change Password", "Create New Employee", "Set Room Prices"};
+    private String[] adminOptions = {"Change Password", "Create New Staff", "Set Room Prices"};
     
     private String[] employeeOptions = {"Check-in Guest", "Checkout Guest", "Add Charges"};
     private String[] customerOptions = {"View Schedule", "Choose Preferred Workday", "Choose Time Off"};
@@ -105,11 +105,11 @@ public class Selector implements Serializable {
     public String adminList() {
         switch (this.adminChoice) {
             case "Change Password":
-                return "docViewSchedule";
-            case "Create New Employee":
-                return "docPrefWorkday";
+                return "changeAdminPassword";
+            case "Create New Staff":
+                return "newStaff";
             case "Set Room Prices":
-                return "docTimeOff";
+                return "setRoomPrice";
             default:
                 return null;
         }
