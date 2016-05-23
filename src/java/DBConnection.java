@@ -58,7 +58,7 @@ public class DBConnection {
       java.sql.Connection connection = null;
       try {
          connection = DriverManager.getConnection(
-            "jdbc:postgresql://cslvm74.csc.calpoly.edu:5432/bfung", "","");
+            "jdbc:postgresql://cslvm74.csc.calpoly.edu:5432/bfung", "postgres","bfung");
       } catch (SQLException e) {
          System.out.println("Connection Failed! Check output console");
          e.printStackTrace();
