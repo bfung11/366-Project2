@@ -43,7 +43,7 @@ CREATE TABLE staff (
 );
 
 CREATE TABLE rooms (
-   PRIMARY KEY (floor_num, room_num),
+   PRIMARY KEY (room_num),
    floor_num INTEGER NOT NULL,
    room_num INTEGER NOT NULL,
    view_type TEXT NOT NULL,
@@ -51,7 +51,7 @@ CREATE TABLE rooms (
 );
 
 CREATE TABLE room_prices (
-   PRIMARY KEY (floor_num, room_num, start_date),
+   PRIMARY KEY (room_num, start_date),
    floor_num  INTEGER,
    room_num   INTEGER,
    start_date DATE,
