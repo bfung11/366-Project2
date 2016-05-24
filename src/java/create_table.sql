@@ -87,7 +87,7 @@ CREATE TABLE reservations (
    check_in_date  DATE,
    check_out_date DATE,
                   FOREIGN KEY (username) REFERENCES authentications(username),
-                  FOREIGN KEY (floor_num, room_num) REFERENCES rooms(floor_num, room_num)
+                  FOREIGN KEY (room_num) REFERENCES rooms(room_num)
 );
 
 CREATE TABLE bills (
