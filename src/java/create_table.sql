@@ -178,7 +178,8 @@ VALUES
 INSERT INTO room_prices (floor_num, 
                          room_num, 
                          start_date,
-                         end_date)
+                         end_date,
+                         price)
 VALUES
     (1, 101, '2016-01-01', '2016-12-31', 100),
     (1, 102, '2016-01-01', '2016-12-31', 100),
