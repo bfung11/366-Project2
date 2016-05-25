@@ -13,8 +13,8 @@ public class Admin {
    private String password;
    private String firstName;
    private String lastName;
-   private LocalDate startDate;
-   private LocalDate endDate;
+   private String startDate;
+   private String endDate;
    private int floorNumber;
    private int roomNumber;
    private int price;
@@ -31,10 +31,10 @@ public class Admin {
    public int getFloorNumber() { return floorNumber; }
    public void setRoomNumber(int roomNumber) { this.roomNumber = roomNumber; }
    public int getRoomNumber() { return roomNumber; }
-   public void setStartDate(String date) { startDate = LocalDate.parse(date); }
-   public LocalDate getStartDate() { return startDate; }
-   public void setEndDate(String date) { endDate = LocalDate.parse(date); }
-   public LocalDate getEndDate() { return endDate; }
+   public void setStartDate(String date) { startDate = LocalDate.parse(date).toString(); }
+   public String getStartDate() { return startDate; }
+   public void setEndDate(String date) { endDate = LocalDate.parse(date).toString(); }
+   public String getEndDate() { return endDate; }
    public void setRoomPrice(int price) { this.price = price; }
    public int getRoomPrice() { return price; }
 
@@ -69,31 +69,35 @@ public class Admin {
       }
    }
 
-   public void addRoomPrice() {
+   public void addRoomPrice() throws Exception {
       try {
+         if (!isEndDateBeforeStartDate()) {
+            throw new Exception("End date must be after start date");
+         }
+
          String query = 
             "SELECT * " + 
             "FROM room_prices " + 
-            "WHERE start_date = " + "'" + startDate.toString() + "'" + 
-            "AND end_date = " + "'" + endDate.toString() + "'";
+            "WHERE start_date = " + "'" + startDate + "'" + 
+            "AND end_date = " + "'" + endDate + "'";
          DBConnection connection = new DBConnection();
          ResultSet result = connection.executeQuery(query);
 
          if (result.next()) {
             String update = 
-               "UPDATE room_prices " + 
+               "UPDATE room_prices (floor_num, room_num, start_date, end_date, price)" + 
                "SET price = " + price + 
-               "WHERE start_date = " + "'" + startDate.toString() + "'" + 
-               "AND end_date = " + "'" + endDate.toString() + "'";
+               "WHERE start_date = " + "'" + startDate + "'" + 
+               "AND end_date = " + "'" + endDate + "'";
             connection.executeUpdate(update);
          }  
          else {
             String insert = 
-               "INSERT INTO room_prices " + 
+               "INSERT INTO room_prices (floor_num, room_num, start_date, end_date, price)" + 
                "VALUES (" + floorNumber + ", " + 
                             roomNumber + ", " + 
-                            "'" + startDate.toString() + "'" + ", " +
-                            "'" + endDate.toString() + "'" + ", " +
+                      "'" + startDate + "'" + ", " +
+                      "'" + endDate + "'" + ", " +
                             price + ")";
             connection.executeUpdate(insert);
          }
@@ -101,5 +105,12 @@ public class Admin {
       catch (Exception e) {
          e.printStackTrace();
       }   
+   }
+
+   private boolean isEndDateBeforeStartDate() {
+      LocalDate start = LocalDate.parse(startDate);
+      LocalDate end = LocalDate.parse(endDate);
+
+      return start.isBefore(end) || start.isEqual(end);
    }
 }
