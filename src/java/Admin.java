@@ -75,6 +75,10 @@ public class Admin {
             throw new Exception("End date must be after start date");
          }
 
+         if (!isRoomOnFloor()) {
+            throw new Exception("Room must be on the same floor");
+         }
+
          String query = 
             "SELECT * " + 
             "FROM room_prices " + 
@@ -107,6 +111,12 @@ public class Admin {
       catch (Exception e) {
          e.printStackTrace();
       }   
+   }
+
+   private boolean isRoomOnFloor() {
+      String number = roomNumber + "";
+
+      return floorNumber == Integer.parseInt(number.substring(0, 1));
    }
 
    private boolean isEndDateBeforeStartDate() {
