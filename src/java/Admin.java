@@ -78,22 +78,24 @@ public class Admin {
          String query = 
             "SELECT * " + 
             "FROM room_prices " + 
-            "WHERE start_date = " + "'" + startDate + "'" + 
-            "AND end_date = " + "'" + endDate + "'";
+            "WHERE start_date = " + "'" + startDate + "' " + 
+            "AND end_date = " + "'" + endDate + "' " + 
+            "AND floor_num = " + floorNumber + " " + 
+            "AND room_num = " + roomNumber;
          DBConnection connection = new DBConnection();
          ResultSet result = connection.executeQuery(query);
 
          if (result.next()) {
             String update = 
-               "UPDATE room_prices (floor_num, room_num, start_date, end_date, price)" + 
-               "SET price = " + price + 
-               "WHERE start_date = " + "'" + startDate + "'" + 
+               "UPDATE room_prices " + 
+               "SET price = " + price + " " +
+               "WHERE start_date = " + "'" + startDate + "' " + 
                "AND end_date = " + "'" + endDate + "'";
             connection.executeUpdate(update);
          }  
          else {
             String insert = 
-               "INSERT INTO room_prices (floor_num, room_num, start_date, end_date, price)" + 
+               "INSERT INTO room_prices (floor_num, room_num, start_date, end_date, price) " + 
                "VALUES (" + floorNumber + ", " + 
                             roomNumber + ", " + 
                       "'" + startDate + "'" + ", " +
