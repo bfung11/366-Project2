@@ -31,7 +31,7 @@ VALUES
 --(use return generated keys)
 INSERT INTO bills
 VALUES
-   (1, 0, NULL);
+   (1, 0, 'List of Services Ordered');
 
 --Check-in customer given reservation id
 UPDATE reservations
@@ -101,7 +101,8 @@ WHERE reservation_id = 1;
 
 --Set bill total
 UPDATE bills
-SET total = total + 10;
+SET total = total + 10,
+    description = description || E'\nTest charge - $10'
 WHERE reservation_id = 1;
 
 --Get total of bill
