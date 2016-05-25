@@ -38,7 +38,7 @@ VALUES
 --(use return generated keys)
 INSERT INTO bills
 VALUES
-   (<reservation_id>, 0, NULL);
+   (<reservation_id>, 0, 'List of Services Ordered');
 
 --Check-in customer given reservation id
 UPDATE reservations
@@ -103,8 +103,10 @@ FROM reservations
 WHERE reservation_id = <id>;
 
 --Set bill total
+--Description string format example: 'Wifi - $15'
 UPDATE bills
-SET total = total + <amt_to_add>;
+SET total = total + <amt_to_add>,
+    description = description || E'\n<service_name - $price>'
 WHERE reservation_id = <id>;
 
 --Get total of bill
