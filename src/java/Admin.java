@@ -5,6 +5,7 @@
  */
 
 import java.time.*;
+import java.sql.*;
 
 public class Admin {
    private String username;
@@ -13,6 +14,7 @@ public class Admin {
    private String lastName;
    private LocalDate startDate;
    private LocalDate endDate;
+   private int floorNumber;
    private int roomNumber;
    private int price;
 
@@ -79,6 +81,22 @@ public class Admin {
       }
    }
 
+   public void setFloorNumber(int floorNumber) {
+      this.floorNumber = floorNumber;
+   }
+
+   public int getFloorNumber() {
+      return floorNumber;
+   }
+
+   public void setRoomNumber(int roomNumber) {
+      this.roomNumber = roomNumber;
+   }
+
+   public int getRoomNumber() {
+      return roomNumber;
+   }
+
    public void setStartDate(String date) {
       startDate = LocalDate.parse(date);
 
@@ -96,14 +114,6 @@ public class Admin {
       return endDate;
    }
 
-   public void setRoomNumber(int roomNumber) {
-      this.roomNumber = roomNumber;
-   }
-
-   public int getRoomNumber() {
-      return roomNumber;
-   }
-
    public void setRoomPrice(int price) {
       this.price = price;
    }
@@ -113,6 +123,36 @@ public class Admin {
    }
 
    public void addRoomPrice() {
+      try {
+         DBConnection connection = new DBConnection();
+         String query = 
+            "SELECT * " + 
+            "FROM room_prices " + 
+            "WHERE start_date = " + "'" + startDate.toString() + "'" + 
+            "AND end_date = " + "'" + endDate.toString() + "'";
+         ResultSet result = connection.executeQuery(query);
 
+         if (result.next()) {
+            String update = 
+               "UPDATE room_prices " + 
+               "SET price = " + price + 
+               "WHERE start_date = " + "'" + startDate.toString() + "'" + 
+               "AND end_date = " + "'" + endDate.toString() + "'";
+            connection.executeUpdate(update);
+         }  
+         else {
+            String insert = 
+               "INSERT INTO room_prices " + 
+               "VALUES (" + floorNumber + ", " + 
+                            roomNumber + ", " + 
+                            "'" + startDate.toString() + "'" + ", " +
+                            "'" + endDate.toString() + "'" + ", " +
+                            price + ")";
+            connection.executeUpdate(insert);
+         }
+      }
+      catch (Exception e) {
+         e.printStackTrace();
+      }   
    }
 }
