@@ -33,8 +33,8 @@ public class Registration {
    public String getAddress() { return address; }
    public void setCreditCardNumber(int creditCardNumber) { this.creditCardNumber = creditCardNumber; }
    public int getCreditCardNumber() { return creditCardNumber; }
-   public void setCRC(String crc) { this.crc = crc; }
-   public String getCRC() { return crc; }
+   public void setCRC(int crc) { this.crc = crc; }
+   public int getCRC() { return crc; }
    public void setExpirationDate(LocalDate expirationDate) { this.expirationDate = expirationDate; }
    public LocalDate getExpirationDate() { return expirationDate; }
 
@@ -44,18 +44,18 @@ public class Registration {
          String query = 
             "INSERT INTO authentications " + 
             "VALUES ('" + username + "', '" + password + "')";
-         connecion.executeUpdate(query);
+         connection.executeUpdate(query);
 
          query = 
             "INSERT INTO credit_cards " + 
             "VALUES (" + creditCardNumber + ", " + crc + ", '" + expirationDate + "')";
-         connecion.executeUpdate(query);
+         connection.executeUpdate(query);
 
          query = 
             "INSERT INTO customers " + 
-            "VALUES (" + "'" + username + "', " + 
-                       + "'" + firstName + "', " + 
-                       + "'" + lastName + "')";
+            "VALUES (" + "'" + username + "', " +
+                         "'" + firstName + "', " + 
+                         "'" + lastName + "')";
       }
       catch (Exception e) {
          e.printStackTrace();
