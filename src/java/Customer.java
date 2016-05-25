@@ -2,6 +2,7 @@
  * Customer reflects all necessary functions in the Customer page
  *
  * @author Brian Fung
+ * @author Justin Zaman
  */
 
 import java.time.*;
