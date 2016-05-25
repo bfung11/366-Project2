@@ -10,57 +10,55 @@
         <h1>Register</h1>
         <h:form>
             <h:panelGrid columns="3">
-                Login Username: <h:inputText value="#{doctor.lastName}" required ="true"
+                Username: <h:inputText value="#{registration.username}" required ="true"
                                    requiredMessage="Your must enter a"
                                    id="userName"/>
                 <h:message for="userName" style="color:red;margin:8px;"/>
 
-                Password: <h:inputText value="#{doctor.password}" required ="true"
+                Password: <h:inputText value="#{registration.password}" required ="true"
                                       requiredMessage="Your must enter a password!"
                                       validatorMessage="Password must be at least five characters"
                                       id="userPassword">
                     <f:validateLength minimum="5"/>
                 </h:inputText>
                 <h:message for="userPassword" style="color:red;margin:8px;"/>
-                <h:message for="userPassword" style="color:red;margin:8px;"/>
-
                 
-                First Name: <h:inputText value="#{doctor.username}" required ="true"
+                First Name: <h:inputText value="#{registration.firstName}" required ="true"
                                    requiredMessage="Your must enter a"
                                    id="firstName"/>
                 <h:message for="firstName" style="color:red;margin:8px;"/>
                 
-                Last Name <h:inputText value="#{doctor.username}" required ="true"
+                Last Name <h:inputText value="#{registration.lastName}" required ="true"
                    requiredMessage="Your must enter a"
                    id="lastName"/>
                 <h:message for="lastName" style="color:red;margin:8px;"/>
                 
-                E-mail: <h:inputText value="#{doctor.phoneNumber}" required ="true"
+                E-mail: <h:inputText value="#{registration.email}" required ="true"
                                    requiredMessage="Your must enter a"
                                    id="userEmail"/>
                 <h:message for="userEmail" style="color:red;margin:8px;"/>
-                Address: <h:inputText value="#{doctor.email}" required ="true"
+                Address: <h:inputText value="#{registration.address}" required ="true"
                                    requiredMessage="Your must enter a"
                                    id="userAddress"/>
                 <h:message for="userAddress" style="color:red;margin:8px;"/>
                 
-                Credit Card: <h:inputText value="#{doctor.email}" required ="true"
+                Credit Card: <h:inputText value="#{registration.creditCardNumber}" required ="true"
                    requiredMessage="Your must enter a"
                    id="userCard"/>
                 <h:message for="userCard" style="color:red;margin:8px;"/>
                 
-                Expiration Date : <h:inputText value="#{doctor.email}" required ="true"
-                   requiredMessage="Your must enter a"
-                   id="userCardExpire"/>
-                <h:message for="userCardExpire" style="color:red;margin:8px;"/>
-                
-                CRC Code : <h:inputText value="#{doctor.email}" required ="true"
+                CRC Code : <h:inputText value="#{registration.CRC}" required ="true"
                    requiredMessage="Your must enter a"
                    id="userCardCRC"/>
                 <h:message for="userCardCRC" style="color:red;margin:8px;"/>
+                
+                Expiration Date : <h:inputText value="#{registration.expirationDate}" required ="true"
+                   requiredMessage="Your must enter a"
+                   id="userCardExpire"/>
+                <h:message for="userCardExpire" style="color:red;margin:8px;"/>
             </h:panelGrid>
             <h:panelGrid>
-                <h:commandButton value="Go" action="#{doctor.createDoctor()}"/>
+                <h:commandButton value="Go" action="#{registration.createCustomer()}"/>
             </h:panelGrid>
         </h:form>
     </h:body>
