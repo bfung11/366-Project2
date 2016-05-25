@@ -96,8 +96,9 @@ public class Login implements Serializable {
             
             storedPassword = result.getString(1);
             this.loginType = ADMIN;
+            System.out.println("username " + this.username);
             if (!this.username.equals("admin")) {
-               query = "SELECT id FROM staff AS s WHERE s.username = " + this.username;
+               query = "SELECT username FROM staff AS s WHERE s.username = '" + this.username + "'";
                result = con.executeQuery(query);
                // Check if there are rows in staff
                if (result.isBeforeFirst()) {
@@ -107,7 +108,7 @@ public class Login implements Serializable {
                   result.close();
                }
                else {
-                  query = "SELECT id FROM customers AS c WHERE c.username = " + this.username;
+                  query = "SELECT username FROM customers AS c WHERE c.username = '" + this.username + "'";
                   result = con.executeQuery(query);
                   if (result.isBeforeFirst()) {
                      this.loginType = CUSTOMER;

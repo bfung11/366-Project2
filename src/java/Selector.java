@@ -19,11 +19,11 @@ import javax.faces.bean.SessionScoped;
 public class Selector implements Serializable {
     private String[] adminOptions = {"Change Password", "Create New Staff", "Set Room Prices"};
     
-    private String[] employeeOptions = {"Check-in Guest", "Checkout Guest", "Add Charges"};
+    private String[] staffOptions = {"Check-in Guest", "Checkout Guest", "Add Charges"};
     private String[] customerOptions = {"View Schedule", "Choose Preferred Workday", "Choose Time Off"};
     
     private String adminChoice;
-    private String employeeChoice;
+    private String staffChoice;
     private String customerChoice;
 
     /*
@@ -42,12 +42,12 @@ public class Selector implements Serializable {
 
     // Get Employee Options
     public String[] getEmployeeOptions() {
-        return this.employeeOptions;
+        return this.staffOptions;
     }
 
     // Set Employee Options
     public void setEmployeeOptions(String[] options) {
-        this.employeeOptions = options;
+        this.staffOptions = options;
     }
     
     // Get Customer Options
@@ -77,12 +77,12 @@ public class Selector implements Serializable {
     
     // Get Employee dropdown choice
     public String getEmployeeChoice() {
-        return this.employeeChoice;
+        return this.staffChoice;
     }
 
     // Set Employee dropdown choice
     public void setEmployeeChoice(String choice) {
-        this.employeeChoice = choice;
+        this.staffChoice = choice;
     }
     
         // Get Admin dropdown choice
@@ -117,7 +117,7 @@ public class Selector implements Serializable {
     
     
     public String employeeList() {
-        switch (this.employeeChoice) {
+        switch (this.staffChoice) {
             case "Check-in Guest":
                 return "techViewSchedule";
             case "Checkout Guest":
