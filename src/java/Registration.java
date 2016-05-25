@@ -2,6 +2,7 @@
  * Registration reflects all necessary functions in the Registration page
  *
  * @author Brian Fung
+ * @author Justin Zaman
  */
 
 import java.time.*;
