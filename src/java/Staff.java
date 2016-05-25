@@ -2,6 +2,7 @@
  * Staff reflects all necessary functions in the Staff page
  *
  * @author Brian Fung
+ * @author Justin Zaman
  */
 
 import java.time.*;
@@ -11,13 +12,10 @@ public class Staff {
    private int reservationID;
    private String service;
 
-   public void setReservationID(int reservationID) {
-      this.reservationID = reservationID;
-   }
-
-   public int getReservationID() {
-      return reservationID;
-   }
+   public void setReservationID(int reservationID) { this.reservationID = reservationID; }
+   public int getReservationID() { return reservationID; }
+   public void setService(String service) { this.service = service; }
+   public String getService() { return service; }
 
    public void checkCustomerIn() {
       try {
@@ -45,14 +43,6 @@ public class Staff {
       catch (Exception e) {
          e.printStackTrace();
       }
-   }
-
-   public void setService(String service) {
-      this.service = service;
-   }
-
-   public String getService() {
-      return service;
    }
 
    public void addCharges() {
