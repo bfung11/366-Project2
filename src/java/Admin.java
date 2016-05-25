@@ -38,7 +38,7 @@ public class Admin {
    public void setRoomPrice(int price) { this.price = price; }
    public int getRoomPrice() { return price; }
 
-   public void updateAdminPassword(String password) {
+   public void updatePassword(String password) {
       try {
          DBConnection connection = new DBConnection();
          String query = "UPDATE authentications " + 
