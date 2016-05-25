@@ -18,7 +18,12 @@
         <managed-bean-name>admin</managed-bean-name>
         <managed-bean-class>Admin</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
-    </managed-bean>  
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>registration</managed-bean-name>
+        <managed-bean-class>Registration</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
     <navigation-rule>
         <from-view-id>
             /index.xhtml
