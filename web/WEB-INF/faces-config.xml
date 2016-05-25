@@ -24,6 +24,11 @@
         <managed-bean-class>Registration</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
+    <managed-bean>
+        <managed-bean-name>staff</managed-bean-name>
+        <managed-bean-class>Staff</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
     <navigation-rule>
         <from-view-id>
             /index.xhtml

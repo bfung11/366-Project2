@@ -11,7 +11,7 @@ import javax.faces.bean.SessionScoped;
 
 /**
  *
- * @author stanchev
+ * @author Kevin Yang
  */
 @Named(value = "selector")
 @ManagedBean
