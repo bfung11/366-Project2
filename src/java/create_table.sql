@@ -51,7 +51,8 @@ CREATE TABLE rooms (
 );
 
 CREATE TABLE room_prices (
-   PRIMARY KEY (room_num, start_date),
+   PRIMARY KEY (id),
+   id         SERIAL,
    floor_num  INTEGER,
    room_num   INTEGER,
    start_date DATE,
@@ -67,7 +68,8 @@ CREATE TABLE services (
 );
 
 CREATE TABLE service_prices (
-   PRIMARY KEY (service_name),
+   PRIMARY KEY (id),
+   id           SERIAL,
    service_name TEXT,
    start_date   DATE NOT NULL,
    end_date     DATE NOT NULL,
@@ -173,7 +175,10 @@ VALUES
    ('admin', 'admin');
 
 --Initialize room prices
-INSERT INTO room_prices
+INSERT INTO room_prices (floor_num, 
+                         room_num, 
+                         start_date,
+                         end_date)
 VALUES
     (1, 101, '2016-01-01', '2016-12-31', 100),
     (1, 102, '2016-01-01', '2016-12-31', 100),
