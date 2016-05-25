@@ -31,11 +31,17 @@ import javax.servlet.http.HttpSession;
 @SessionScoped
 @ManagedBean
 public class Login implements Serializable {
-    DBConnection connection;
+   DBConnection connection;
 
-    private String username;
-    private String password;
-    private UIInput loginUI;
+   private String username;
+   private String password;
+   private UIInput loginUI;
+    
+   public final  int CUSTOMER = 1;
+   public final  int STAFF = 2;
+   public final  int ADMIN = 3;
+    
+    private int loginType;
 
     public UIInput getLoginUI() {
         return loginUI;
@@ -79,11 +85,8 @@ public class Login implements Serializable {
         // TODO: check if user and password matches input
         //Get password from DB
         
-        if (this.username.equals("admin"))
-           return;
-        
         try {
-            String query = "select password from login where username = '" 
+            String query = "select password from authentications where username = '" 
                    + this.username + "'";
             DBConnection con = new DBConnection();
             int userId = -1;
@@ -92,12 +95,30 @@ public class Login implements Serializable {
             result.next();
             
             storedPassword = result.getString(1);
+            this.loginType = ADMIN;
+            if (!this.username.equals("admin")) {
+               query = "SELECT id FROM staff AS s WHERE s.username = " + this.username;
+               result = con.executeQuery(query);
+               // Check if there are rows in staff
+               if (result.isBeforeFirst()) {
+                  this.loginType = STAFF;
+                  userId = result.getInt("id");
+                  session.setAttribute("userId", userId);
+                  result.close();
+               }
+               else {
+                  query = "SELECT id FROM customers AS c WHERE c.username = " + this.username;
+                  result = con.executeQuery(query);
+                  if (result.isBeforeFirst()) {
+                     this.loginType = CUSTOMER;
+                     userId = result.getInt("id");
+                     session.setAttribute("userId", userId);
+                     result.close();
+                  }
+               }
+            }
             
-            query = "select id from Doctors d, Login l where d.email = l.email and l.username = " + this.username;
-            result = con.executeQuery(query);
-            userId = result.getInt("id");
-            session.setAttribute("userId", userId);
-            result.close();
+               
         }
         catch(Exception e) {
             e.printStackTrace();
@@ -110,22 +131,18 @@ public class Login implements Serializable {
     }
 
     public String go() {
-        //this.invalidateUserSession();
-        /*Employee empl = EmployeeFactory.createEmployee(this.username);
-        switch() {
-            case User.DOCTOR:
-               return "startDoc";
-            case User.TECHNICIAN:
-                return "startTech";
-            case User.ADMINISTRATOR:
-                return "startAdmin";
+        this.invalidateUserSession();
+        switch(this.loginType) {
+            case CUSTOMER:
+               return "customer";
+            case STAFF:
+                return "staff";
+            case ADMIN:
+                return "admin";
             default:
-                System.out.println("thisisatype " + (empl == null));
-                return "startError";
+                System.out.println(this.username + " is not a customer, staff, or admin!");
+                return "loginError";
         }
-        */
-        
-        return "admin";
     }
     
     public void invalidateUserSession() {
