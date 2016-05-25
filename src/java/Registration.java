@@ -17,7 +17,7 @@ public class Registration {
    private String address;
    private int creditCardNumber;
    private int crc;
-   private LocalDate expirationDate;
+   private String expirationDate;
 
    public void setUsername(String username) { this.username = username; }
    public String getUsername() { return username; }
@@ -35,8 +35,8 @@ public class Registration {
    public int getCreditCardNumber() { return creditCardNumber; }
    public void setCRC(int crc) { this.crc = crc; }
    public int getCRC() { return crc; }
-   public void setExpirationDate(LocalDate expirationDate) { this.expirationDate = expirationDate; }
-   public LocalDate getExpirationDate() { return expirationDate; }
+   public void setExpirationDate(String expirationDate) { this.expirationDate = expirationDate; }
+   public String getExpirationDate() { return expirationDate; }
 
    public void createCustomer() {
       try {
@@ -55,7 +55,11 @@ public class Registration {
             "INSERT INTO customers " + 
             "VALUES (" + "'" + username + "', " +
                          "'" + firstName + "', " + 
-                         "'" + lastName + "')";
+                         "'" + lastName + "', " +
+                         "'" + email + "', " +
+                         "'" + address + "', " +
+                               creditCardNumber + ")";
+         connection.executeUpdate(query);
       }
       catch (Exception e) {
          e.printStackTrace();
