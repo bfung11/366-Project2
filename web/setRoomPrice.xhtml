@@ -2,7 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:singleCustomer = "http://xmlns.jcp.org/jsf/composite/ezcomp">
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <title>Set Room Price</title>
     <h:head>
         <link href="css/stylesheet.css" rel="stylesheet" type="text/css" />
@@ -11,9 +11,30 @@
     <h:body>
         <!-- do YYYY-MM-DD -->
         <h:form>
-            <singleCustomer:getCustomerID/>
+            <h:panelGrid columns="3">
+                Floor Number: <h:inputText value="#{admin.floorNumber}" required ="true"
+                                   requiredMessage="Your must enter a username!"
+                                   id="floorNum"/>
+                <h:message for="floorNum" style="color:red;margin:8px;"/>
+
+                Room Number: <h:inputText value="#{admin.roomNumber}" required ="true"
+                                      requiredMessage="Your must enter a password!"
+                                      id="roomNum" />
+                <h:message for="roomNum" style="color:red;margin:8px;"/>
+
+
+                Start Date (YYYY-MM-DD): <h:inputText value="#{admin.startDate}" required="true"
+                                   requiredMessage="Your must enter a start "
+                                   id="startDate"/>
+                <h:message for="startDate" style="color:red;margin:8px;"/>
+
+                End Date (YYYY-MM-DD): <h:inputText value="#{admin.endDate}" required ="true"
+                   requiredMessage="Your must enter a"
+                   id="endDate"/>
+                <h:message for="endDate" style="color:red;margin:8px;"/>
+            </h:panelGrid>
             <h:panelGrid>
-                <h:commandButton value="Go" action="#{customer.showCustomer}"/>
+                <h:commandButton value="Go" action="#{admin.addRoomPrice()}"/>
             </h:panelGrid>
         </h:form>
     </h:body>

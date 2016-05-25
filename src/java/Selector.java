@@ -151,5 +151,4 @@ public class Selector implements Serializable {
     public String registerButton() {
        return "register";
     }
-    
 }
