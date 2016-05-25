@@ -114,3 +114,19 @@ WHERE reservation_id = 1;
 SELECT description
 FROM bills
 WHERE reservation_id = 1;
+
+--Insert new price range
+INSERT INTO room_prices
+VALUES
+   (DEFAULT, 1, 101, '2016-12-25', '2016-12-31', 300),
+   (DEFAULT, 1, 101, '2016-12-27', '2016-12-31', 200),
+   (DEFAULT, 1, 101, '2016-2-25', '2016-12-26', 100),
+   (DEFAULT, 1, 101, '2016-12-25', '2016-12-25', 9999),
+   (DEFAULT, 1, 101, '2016-12-24', '2016-12-25', 1000);
+
+--Get maximum price of room on a day
+SELECT max(price)
+FROM room_prices
+WHERE start_date <= '2016-12-24'
+AND   end_date >= '2016-12-24'
+AND   room_num = 101;
