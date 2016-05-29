@@ -12,7 +12,8 @@ DROP TABLE IF EXISTS bills CASCADE;
 CREATE TABLE authentications (
    PRIMARY KEY (username),
    username TEXT,
-   password TEXT NOT NULL
+   password TEXT NOT NULL,
+   user_type TEXT NOT NULL
 );
 
 CREATE TABLE credit_cards (
@@ -171,8 +172,8 @@ VALUES
 
 --Default add admin
 INSERT INTO authentications
-VALUES
-   ('admin', 'admin');
+VALUES ('admin', 'admin', 'admin'),
+       ('customer', 'customer', 'customer');
 
 --Initialize room prices
 INSERT INTO room_prices (floor_num, 
@@ -257,6 +258,73 @@ VALUES
    (DEFAULT, 'Room Service', '2016-01-01', '2016-12-31', 20), 
    (DEFAULT, 'Food Service', '2016-01-01', '2016-12-31', 30), 
    (DEFAULT, 'Cleaning Service', '2016-01-01', '2016-12-31', 10);
+
+INSERT INTO reservations
+VALUES (DEFAULT, 'customer', 1, 101, '2016-12-01', '2016-12-31', NULL, NULL),
+       (DEFAULT, 'customer', 1, 102, '2016-12-01', '2016-12-31', NULL, NULL),
+       (DEFAULT, 'customer', 1, 103, '2016-12-01', '2016-12-31', NULL, NULL),
+       (DEFAULT, 'customer', 1, 104, '2016-12-01', '2016-12-31', NULL, NULL),
+       (DEFAULT, 'customer', 1, 105, '2016-12-01', '2016-12-31', NULL, NULL),
+       (DEFAULT, 'customer', 1, 106, '2016-12-01', '2016-12-31', NULL, NULL),
+       (DEFAULT, 'customer', 1, 107, '2016-12-01', '2016-12-31', NULL, NULL),
+       (DEFAULT, 'customer', 1, 108, '2016-12-01', '2016-12-31', NULL, NULL),
+       (DEFAULT, 'customer', 1, 109, '2016-12-01', '2016-12-31', NULL, NULL),
+       (DEFAULT, 'customer', 1, 110, '2016-12-01', '2016-12-31', NULL, NULL),
+       (DEFAULT, 'customer', 1, 111, '2016-12-01', '2016-12-31', NULL, NULL),
+       (DEFAULT, 'customer', 1, 112, '2016-12-01', '2016-12-31', NULL, NULL),
+       (DEFAULT, 'customer', 2, 202, '2016-12-01', '2016-12-31', NULL, NULL),
+       (DEFAULT, 'customer', 2, 202, '2016-12-01', '2016-12-31', NULL, NULL),
+       (DEFAULT, 'customer', 2, 203, '2016-12-01', '2016-12-31', NULL, NULL),
+       (DEFAULT, 'customer', 2, 204, '2016-12-01', '2016-12-31', NULL, NULL),
+       (DEFAULT, 'customer', 2, 205, '2016-12-01', '2016-12-31', NULL, NULL),
+       (DEFAULT, 'customer', 2, 206, '2016-12-01', '2016-12-31', NULL, NULL),
+       (DEFAULT, 'customer', 2, 207, '2016-12-01', '2016-12-31', NULL, NULL),
+       (DEFAULT, 'customer', 2, 208, '2016-12-01', '2016-12-31', NULL, NULL),
+       (DEFAULT, 'customer', 2, 209, '2016-12-01', '2016-12-31', NULL, NULL),
+       (DEFAULT, 'customer', 2, 210, '2016-12-01', '2016-12-31', NULL, NULL),
+       (DEFAULT, 'customer', 2, 211, '2016-12-01', '2016-12-31', NULL, NULL),
+       (DEFAULT, 'customer', 2, 212, '2016-12-01', '2016-12-31', NULL, NULL),
+       (DEFAULT, 'customer', 3, 302, '2016-12-01', '2016-12-31', NULL, NULL),
+       (DEFAULT, 'customer', 3, 302, '2016-12-01', '2016-12-31', NULL, NULL),
+       (DEFAULT, 'customer', 3, 303, '2016-12-01', '2016-12-31', NULL, NULL),
+       (DEFAULT, 'customer', 3, 304, '2016-12-01', '2016-12-31', NULL, NULL),
+       (DEFAULT, 'customer', 3, 305, '2016-12-01', '2016-12-31', NULL, NULL),
+       (DEFAULT, 'customer', 3, 306, '2016-12-01', '2016-12-31', NULL, NULL),
+       (DEFAULT, 'customer', 3, 307, '2016-12-01', '2016-12-31', NULL, NULL),
+       (DEFAULT, 'customer', 3, 308, '2016-12-01', '2016-12-31', NULL, NULL),
+       (DEFAULT, 'customer', 3, 309, '2016-12-01', '2016-12-31', NULL, NULL),
+       (DEFAULT, 'customer', 3, 310, '2016-12-01', '2016-12-31', NULL, NULL),
+       (DEFAULT, 'customer', 3, 311, '2016-12-01', '2016-12-31', NULL, NULL),
+       (DEFAULT, 'customer', 3, 312, '2016-12-01', '2016-12-31', NULL, NULL),
+       (DEFAULT, 'customer', 4, 402, '2016-12-01', '2016-12-31', NULL, NULL),
+       (DEFAULT, 'customer', 4, 402, '2016-12-01', '2016-12-31', NULL, NULL),
+       (DEFAULT, 'customer', 4, 403, '2016-12-01', '2016-12-31', NULL, NULL),
+       (DEFAULT, 'customer', 4, 404, '2016-12-01', '2016-12-31', NULL, NULL),
+       (DEFAULT, 'customer', 4, 405, '2016-12-01', '2016-12-31', NULL, NULL),
+       (DEFAULT, 'customer', 4, 406, '2016-12-01', '2016-12-31', NULL, NULL),
+       (DEFAULT, 'customer', 4, 407, '2016-12-01', '2016-12-31', NULL, NULL),
+       (DEFAULT, 'customer', 4, 408, '2016-12-01', '2016-12-31', NULL, NULL),
+       (DEFAULT, 'customer', 4, 409, '2016-12-01', '2016-12-31', NULL, NULL),
+       (DEFAULT, 'customer', 4, 410, '2016-12-01', '2016-12-31', NULL, NULL),
+       (DEFAULT, 'customer', 4, 411, '2016-12-01', '2016-12-31', NULL, NULL),
+       (DEFAULT, 'customer', 4, 412, '2016-12-01', '2016-12-31', NULL, NULL),
+       (DEFAULT, 'customer', 5, 502, '2016-12-01', '2016-12-31', NULL, NULL),
+       (DEFAULT, 'customer', 5, 502, '2016-12-01', '2016-12-31', NULL, NULL),
+       (DEFAULT, 'customer', 5, 503, '2016-12-01', '2016-12-31', NULL, NULL),
+       (DEFAULT, 'customer', 5, 504, '2016-12-01', '2016-12-31', NULL, NULL),
+       (DEFAULT, 'customer', 5, 505, '2016-12-01', '2016-12-31', NULL, NULL),
+       (DEFAULT, 'customer', 5, 506, '2016-12-01', '2016-12-31', NULL, NULL),
+       (DEFAULT, 'customer', 5, 507, '2016-12-01', '2016-12-31', NULL, NULL),
+       (DEFAULT, 'customer', 5, 508, '2016-12-01', '2016-12-31', NULL, NULL),
+       (DEFAULT, 'customer', 5, 509, '2016-12-01', '2016-12-31', NULL, NULL),
+       (DEFAULT, 'customer', 5, 510, '2016-12-01', '2016-12-31', NULL, NULL),
+       (DEFAULT, 'customer', 5, 511, '2016-12-01', '2016-12-31', NULL, NULL),
+       (DEFAULT, 'customer', 5, 512, '2016-12-01', '2016-12-31', NULL, NULL);
+
+
+
+
+
 
 
 

@@ -56,7 +56,8 @@ public class Admin {
          DBConnection connection = new DBConnection();
          String authQuery = "INSERT INTO authentications " + 
                             "VALUES (" + "'" + username + "', " + 
-                                         "'" + password + "')";
+                                         "'" + password + "', " +
+                                               "'staff')";
          String staffQuery = "INSERT INTO staff " + 
                              "VALUES (" + "'" + username + "', " + 
                                           "'" + firstName + "', " + 
@@ -107,6 +108,8 @@ public class Admin {
                             price + ")";
             connection.executeUpdate(insert);
          }
+
+         result.close();
       }
       catch (Exception e) {
          e.printStackTrace();
