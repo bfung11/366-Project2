@@ -9,10 +9,10 @@
     <h:body>
         <h:form>
             Staff Options:
-            <h:selectOneMenu value="#{selector.employeeChoice}">
-                <f:selectItems value="#{selector.employeeOptions}"/>
+            <h:selectOneMenu value="#{selector.staffChoice}">
+                <f:selectItems value="#{selector.staffOptions}"/>
             </h:selectOneMenu>
-            <h:commandButton value = "Go" action="#{selector.employeeList()}"/>
+            <h:commandButton value = "Go" action="#{selector.staffList()}"/>
         </h:form>
     </h:body>
 </html>
