@@ -8,6 +8,7 @@ import java.time.*;
 import java.sql.*;
 
 public class Table {
+   public final static String USER_TYPE = "user_type";
    public final static String RESERVATION_ID = "reservation_id";
    public final static String START_DATE = "start_date";
    public final static String END_DATE = "end_date";
