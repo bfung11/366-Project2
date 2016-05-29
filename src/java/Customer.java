@@ -16,8 +16,8 @@ public class Customer {
    private int reservationID;
    private String viewType;
    private String roomType;
-   private LocalDate startDate;
-   private LocalDate endDate;
+   private String startDate;
+   private String endDate;
 
    public void setReservationID(int reservationID) { this.reservationID = reservationID; }
    public int getReservationID() { return reservationID; }
@@ -25,10 +25,10 @@ public class Customer {
    public String getViewType() { return viewType; }
    public void setRoomType(String roomType) { this.roomType = roomType; }
    public String getRoomType() { return roomType; }
-   public void setStartDate(String date) { startDate = LocalDate.parse(date); }
-   public LocalDate getStartDate() { return startDate; }
-   public void setEndDate(String date) { endDate = LocalDate.parse(date); }
-   public LocalDate getEndDate() { return endDate; }
+   public void setStartDate(String date) { startDate = date; }
+   public String getStartDate() { return startDate; }
+   public void setEndDate(String date) { endDate = date; }
+   public String getEndDate() { return endDate; }
 
    public void makeReservation() {
       try {
@@ -38,17 +38,17 @@ public class Customer {
             "WHERE RO.view_type = '" + viewType + "' AND " + 
                   "RO.room_type = '" + roomType + "' AND " + 
                   "RO.room_num NOT IN " + 
-                     "((SELECT floor_num, room_num " + 
+                     "((SELECT room_num " + 
                        "FROM reservations " + 
                        "WHERE start_date >= '" + startDate + "' AND " + 
                              "start_date <= '" + endDate + "') " +
                      "UNION " + 
-                     "(SELECT floor_num, room_num " +
+                     "(SELECT room_num " +
                       "FROM reservations " + 
                       "WHERE end_date >= '" + startDate + "' AND " + 
                              "end_date <= '" + endDate + "') " +
                      "UNION " + 
-                     "(SELECT floor_num, room_num " + 
+                     "(SELECT room_num " + 
                       "FROM reservations " + 
                       "WHERE start_date <= '" + startDate + "' AND " + 
                              "end_date >= '" + endDate + "'))";
@@ -58,7 +58,7 @@ public class Customer {
          if (result.next()) {
             int floorNumber = result.getInt(Table.FLOOR_NUMBER);
             int roomNumber = result.getInt(Table.ROOM_NUMBER);
-
+            
             query = 
                "INSERT INTO reservations " + 
                "VALUES " + 
@@ -106,8 +106,8 @@ public class Customer {
             ResultSet room_result = connection.executeQuery(query);
 
             if (room_result.next()) {
-               this.viewType = result.getString(Table.VIEW_TYPE);
-               this.roomType = result.getString(Table.ROOM_TYPE);
+               String viewType = result.getString(Table.VIEW_TYPE);
+               String roomType = result.getString(Table.ROOM_TYPE);
 
                Reservation reservation = new Reservation();
                reservation.setReservationID(id);
