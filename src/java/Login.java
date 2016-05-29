@@ -36,120 +36,110 @@ public class Login implements Serializable {
    private String username;
    private String password;
    private UIInput loginUI;
-    
+      
    public final  int CUSTOMER = 1;
    public final  int STAFF = 2;
    public final  int ADMIN = 3;
-    
-    private int loginType;
+      
+   private int loginType;
 
-    public UIInput getLoginUI() {
-        return loginUI;
-    }
+   public UIInput getLoginUI() {
+      return loginUI;
+   }
 
-    public void setLoginUI(UIInput loginUI) {
-        this.loginUI = loginUI;
-    }
+   public void setLoginUI(UIInput loginUI) {
+      this.loginUI = loginUI;
+   }
 
-    // Changing getUsername to getBlah will make XHTML from login.username to login.blah
-    public String getUsername() {
-        return username;
-    }
+   // Changing getUsername to getBlah will make XHTML from login.username to login.blah
+   public String getUsername() {
+      return username;
+   }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+   public void setUsername(String username) {
+      this.username = username;
+   }
 
-    public String getPassword() {
-        return password;
-    }
+   public String getPassword() {
+      return password;
+   }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+   public void setPassword(String password) {
+      this.password = password;
+   }
 
-    public void validate(
-            FacesContext context, 
-            UIComponent component, 
-            Object value
-    ) throws ValidatorException, SQLException {
-        this.username = loginUI.getLocalValue().toString();
-        this.password = value.toString();
-        String storedPassword = null;
-        ResultSet result;
-        
-        HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
-        session.setAttribute("user", this.username);
-        //System.out.println(session.);
+   public void validate(
+               FacesContext context, 
+               UIComponent component, 
+               Object value
+   ) throws ValidatorException, SQLException {
+      this.username = loginUI.getLocalValue().toString();
+      this.password = value.toString();
+      String storedPassword = null;
+      
+      HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
+      session.setAttribute("user", this.username);
+      //System.out.println(session.);
 
-        // TODO: check if user and password matches input
-        //Get password from DB
-        
-        try {
-            String query = "select password from authentications where username = '" 
-                   + this.username + "'";
-            DBConnection con = new DBConnection();
-            int userId = -1;
-            
-            result = con.executeQuery(query);
-            result.next();
-            
-            storedPassword = result.getString(1);
-            this.loginType = ADMIN;
-            System.out.println("username " + this.username);
-            if (!this.username.equals("admin")) {
-               query = "SELECT username FROM staff AS s WHERE s.username = '" + this.username + "'";
-               result = con.executeQuery(query);
-               // Check if there are rows in staff
-               if (result.isBeforeFirst()) {
+      // TODO: check if user and password matches input
+      //Get password from DB
+      
+      try {
+         int userId = -1;
+         String query = 
+            "SELECT * " + 
+            "FROM authentications " + 
+            "WHERE username = '" + this.username + "' AND " + 
+                  "password = '" + this.password + "'";
+         DBConnection connection = new DBConnection();
+         ResultSet result = connection.executeQuery(query);
+
+         if (result.next()) {
+            switch(result.getString(Table.USER_TYPE)) {
+               case "admin":
+                  this.loginType = ADMIN;
+                  break;
+               case "staff":
                   this.loginType = STAFF;
-                  userId = result.getInt("id");
-                  session.setAttribute("userId", userId);
-                  result.close();
-               }
-               else {
-                  query = "SELECT username FROM customers AS c WHERE c.username = '" + this.username + "'";
-                  result = con.executeQuery(query);
-                  if (result.isBeforeFirst()) {
-                     this.loginType = CUSTOMER;
-                     userId = result.getInt("id");
-                     session.setAttribute("userId", userId);
-                     result.close();
-                  }
-               }
+                  break;
+               case "customer":
+                  this.loginType = CUSTOMER;
+                  break;
+               default:
+                  break;
             }
-            
-               
-        }
-        catch(Exception e) {
-            e.printStackTrace();
-        }
-        
-        if (storedPassword == null || !this.password.equals(storedPassword)) {
+
+            userId = result.getInt("id");
+            session.setAttribute("userId", userId);
+         }
+         else {
             FacesMessage errorMessage = new FacesMessage("Wrong username or password!");
-            throw new ValidatorException(errorMessage);
-        }       
-    }
+            throw new ValidatorException(errorMessage);  
+         }     
+      }
+      catch(Exception e) {
+         e.printStackTrace();
+      }    
+   }
 
-    public String go() {
-        this.invalidateUserSession();
-        switch(this.loginType) {
-            case CUSTOMER:
-               return "customer";
-            case STAFF:
-                return "staff";
-            case ADMIN:
-                return "admin";
-            default:
-                System.out.println(this.username + " is not a customer, staff, or admin!");
-                return "loginError";
-        }
-    }
-    
-    public void invalidateUserSession() {
-        FacesContext context = FacesContext.getCurrentInstance();
-        HttpSession session = (HttpSession) context.getExternalContext().getSession(false);
-        session.invalidate();
-    }
-
+   public String go() {
+      this.invalidateUserSession();
+      switch(this.loginType) {
+         case CUSTOMER:
+          return "customer";
+         case STAFF:
+            return "staff";
+         case ADMIN:
+            return "admin";
+         default:
+            System.out.println(this.username + " is not a customer, staff, or admin!");
+            return "loginError";
+      }
+   }
+   
+   public void invalidateUserSession() {
+      FacesContext context = FacesContext.getCurrentInstance();
+      HttpSession session = (HttpSession) context.getExternalContext().getSession(false);
+      session.invalidate();
+   }
 }
