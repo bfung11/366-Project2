@@ -43,7 +43,7 @@ public class Registration {
          DBConnection connection = new DBConnection();
          String query = 
             "INSERT INTO authentications " + 
-            "VALUES ('" + username + "', '" + password + "')";
+            "VALUES ('" + username + "', '" + password + "', 'customer')";
          connection.executeUpdate(query);
 
          query = 
