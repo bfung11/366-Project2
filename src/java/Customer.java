@@ -58,13 +58,14 @@ public class Customer {
          if (result.next()) {
             int floorNumber = result.getInt(Table.FLOOR_NUMBER);
             int roomNumber = result.getInt(Table.ROOM_NUMBER);
-            
+
+            getUsername();
             query = 
                "INSERT INTO reservations " + 
                "VALUES " + 
                   "(DEFAULT, " + 
-                    "'" + username + "', " +
-                          floorNumber + "', " +
+                    "'" + this.username + "', " +
+                          floorNumber + ", " +
                           roomNumber + ", " + 
                     "'" + startDate + "', " + 
                     "'" + endDate + "', " + 
@@ -139,6 +140,7 @@ public class Customer {
       ELContext elContext = FacesContext.getCurrentInstance().getELContext();
       Login login = (Login) elContext.getELResolver().getValue(elContext, null, "login");
       username = login.getUsername();
+      System.out.println("username: " + username);
    }
 
    public void cancelReservations() {
