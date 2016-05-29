@@ -116,9 +116,9 @@ public class Staff {
          String query = 
             "SELECT price " +
             "FROM service_prices " +
-            "WHERE service_name = " + service + " " +
-            "AND   start_date <= " + LocalDate.now().toString() + " " +
-            "AND   end_date >= " + LocalDate.now().toString();
+            "WHERE service_name = '" + service + "' " +
+            "AND   start_date <= '" + LocalDate.now().toString() + "' " +
+            "AND   end_date >= '" + LocalDate.now().toString() + "'";
 
 
          results = connection.executeQuery(query);
