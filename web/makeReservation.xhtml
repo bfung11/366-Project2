@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <title>Make Reservation</title>
+    <h:head>
+        <link href="css/stylesheet.css" rel="stylesheet" type="text/css" />
+        <h1>Make Reservation</h1>
+    </h:head>
+    <h:body>
+        <!-- do YYYY-MM-DD -->
+        <h:form>
+            <h:panelGrid columns="3">
+                Start Date (YYYY-MM-DD): <h:inputText value="#{customer.startDate}" required="true"
+                                   requiredMessage="Your must enter a start "
+                                   id="startDate"/>
+                <h:message for="startDate" style="color:red;margin:8px;"/>
+
+                End Date (YYYY-MM-DD): <h:inputText value="#{customer.endDate}" required ="true"
+                   requiredMessage="Your must enter a"
+                   id="endDate"/>
+                <h:message for="endDate" style="color:red;margin:8px;"/>
+                
+                Room Type (double queen, single king): <h:inputText value="#{customer.roomNumber}" required ="true"
+                                      requiredMessage="Your must enter a password!"
+                                      id="roomNum" />
+                <h:message for="roomNum" style="color:red;margin:8px;"/>
+                
+                View Type (ocean, pool): <h:inputText value="#{customer.view}" required ="true"
+                   requiredMessage="Your must enter a"
+                   id="price"/>
+                <h:message for="price" style="color:red;margin:8px;"/>
+            </h:panelGrid>
+            <h:panelGrid>
+                <h:commandButton value="Go" action="#{customer.makeReservation()}"/>
+            </h:panelGrid>
+        </h:form>
+    </h:body>
+</html>
+
