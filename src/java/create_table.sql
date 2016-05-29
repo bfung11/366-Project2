@@ -246,6 +246,18 @@ VALUES
     (5, 511, '2016-01-01', '2016-12-31', 100),
     (5, 512, '2016-01-01', '2016-12-31', 100);
 
+--Initialize some services and their prices
+INSERT INTO services
+VALUES
+   ('Wifi'), ('Room Service'), ('Food Service'), ('Cleaning Service');
+
+INSERT INTO service_prices
+VALUES
+   (DEFAULT, 'Wifi', '2016-01-01', '2016-12-31', 15), 
+   (DEFAULT, 'Room Service', '2016-01-01', '2016-12-31', 20), 
+   (DEFAULT, 'Food Service', '2016-01-01', '2016-12-31', 30), 
+   (DEFAULT, 'Cleaning Service', '2016-01-01', '2016-12-31', 10);
+
 
 
 

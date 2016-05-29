@@ -130,3 +130,26 @@ FROM room_prices
 WHERE start_date <= '2016-12-24'
 AND   end_date >= '2016-12-24'
 AND   room_num = 101;
+
+INSERT INTO services
+VALUES
+   ('Wifi'), ('Room Service'), ('Food Service'), ('Cleaning Service');
+
+INSERT INTO service_prices
+VALUES
+   (DEFAULT, 'Wifi', '2016-01-01', '2016-12-31', 15), 
+   (DEFAULT, 'Room Service', '2016-01-01', '2016-12-31', 20), 
+   (DEFAULT, 'Food Service', '2016-01-01', '2016-12-31', 30), 
+   (DEFAULT, 'Cleaning Service', '2016-01-01', '2016-12-31', 10);
+
+--Get price of service
+SELECT max(price)
+FROM service_prices
+WHERE service_name = 'Wifi'
+AND   start_date <= '2016-01-01'
+AND   end_date >= '2016-01-01';
+
+--Get date range of reservation
+SELECT start_date, end_date, room_num
+FROM reservations
+WHERE reservation_id = 1;
