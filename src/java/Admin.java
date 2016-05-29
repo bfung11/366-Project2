@@ -108,6 +108,8 @@ public class Admin {
                             price + ")";
             connection.executeUpdate(insert);
          }
+
+         result.close();
       }
       catch (Exception e) {
          e.printStackTrace();
