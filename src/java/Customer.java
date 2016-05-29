@@ -71,6 +71,8 @@ public class Customer {
                     "NULL, NULL)";
             connection.executeUpdate(query);          
          }
+
+         result.close();
       }
       catch (Exception e) {
          e.printStackTrace();
@@ -120,7 +122,11 @@ public class Customer {
 
                list.add(reservation);
             }
+
+            room_result.close();
          }
+
+         result.close();
       }
       catch (Exception e) {
          e.printStackTrace();
