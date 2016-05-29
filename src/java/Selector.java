@@ -20,7 +20,7 @@ public class Selector implements Serializable {
     private String[] adminOptions = {"Change Password", "Create New Staff", "Set Room Prices"};
     
     private String[] staffOptions = {"Check-in Guest", "Checkout Guest", "Add Charges"};
-    private String[] customerOptions = {"View Schedule", "Choose Preferred Workday", "Choose Time Off"};
+    private String[] customerOptions = {"Make Reservation", "View Reservation", "Cancel Reservation"};
     
     private String adminChoice;
     private String staffChoice;
@@ -41,12 +41,12 @@ public class Selector implements Serializable {
     }
 
     // Get Employee Options
-    public String[] getEmployeeOptions() {
+    public String[] getStaffOptions() {
         return this.staffOptions;
     }
 
     // Set Employee Options
-    public void setEmployeeOptions(String[] options) {
+    public void setStaffOptions(String[] options) {
         this.staffOptions = options;
     }
     
@@ -76,12 +76,12 @@ public class Selector implements Serializable {
     }
     
     // Get Employee dropdown choice
-    public String getEmployeeChoice() {
+    public String getStaffChoice() {
         return this.staffChoice;
     }
 
     // Set Employee dropdown choice
-    public void setEmployeeChoice(String choice) {
+    public void setStaffChoice(String choice) {
         this.staffChoice = choice;
     }
     
@@ -116,27 +116,27 @@ public class Selector implements Serializable {
     }
     
     
-    public String employeeList() {
+    public String staffList() {
         switch (this.staffChoice) {
             case "Check-in Guest":
-                return "techViewSchedule";
+                return "checkIn";
             case "Checkout Guest":
-                return "techPrefWorkday";
+                return "checkOut";
             case "Add Charges":
-                return "techTimeOff";
+                return "addCharges";
             default:
                 return null;
         }
     }
-        
+    
     public String customerList() {
         switch (this.customerChoice) {
-            case "View Schedule":
-                return "listDoctors";
-            case "Choose Preferred Workday":
-                return "newDoctor";
-            case "Choose Time Off":
-                return "deleteDoctor";
+            case "Make Reservation":
+                return "makeReservation";
+            case "View Reservation":
+                return "viewReservation";
+            case "Cancel Reservation":
+                return "cancelReservation";
             default:
                 return null;
         }
