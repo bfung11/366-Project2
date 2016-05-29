@@ -136,6 +136,14 @@ WHERE reservation_id = <id>;
 --------------------------------------------------------------------------------
 
 --------------------------------------------------------------------------------
+--Gets date range and room number of a reservation
+--Used to calculate price per day
+SELECT start_date, end_date, room_num
+FROM reservations
+WHERE reservation_id = <id>;
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
 --Get maximum price of room on a day
 --Want to add this to bill as you calculate it
 SELECT max(price)
@@ -146,7 +154,16 @@ AND   room_num = <room_num>;
 --------------------------------------------------------------------------------
 
 --------------------------------------------------------------------------------
---Add service to bill
+--Get price of service from name
+SELECT max(price)
+FROM service_prices
+WHERE service_name = '<name>'
+AND   start_date <= '<date>'
+AND   end_date >= '<date>';
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+--Add service price to bill
 --Description string format example: 'Wifi - $15'
 UPDATE bills
 SET total = total + <amt_to_add>,
