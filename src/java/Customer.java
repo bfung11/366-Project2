@@ -104,13 +104,13 @@ public class Customer {
             query = 
                "SELECT * " + 
                "FROM rooms " + 
-               "WHERE roomNumber = " + roomNumber + " " + 
-                     "floorNumber = " + floorNumber;
+               "WHERE room_num = " + roomNumber + " AND " + 
+                     "floor_num = " + floorNumber;
             ResultSet room_result = connection.executeQuery(query);
 
             if (room_result.next()) {
-               String viewType = result.getString(Table.VIEW_TYPE);
-               String roomType = result.getString(Table.ROOM_TYPE);
+               String viewType = room_result.getString(Table.VIEW_TYPE);
+               String roomType = room_result.getString(Table.ROOM_TYPE);
 
                Reservation reservation = new Reservation();
                reservation.setReservationID(id);
@@ -140,7 +140,7 @@ public class Customer {
       ELContext elContext = FacesContext.getCurrentInstance().getELContext();
       Login login = (Login) elContext.getELResolver().getValue(elContext, null, "login");
       username = login.getUsername();
-      System.out.println("username: " + username);
+      System.out.println("login: " + login.getUsername());
    }
 
    public void cancelReservations() {
