@@ -70,7 +70,25 @@ public class Customer {
                     "'" + startDate + "', " + 
                     "'" + endDate + "', " + 
                     "NULL, NULL)";
-            connection.executeUpdate(query);          
+            connection.executeUpdate(query);
+
+            query = 
+              "SELECT reservation_id " + 
+              "FROM reservations " + 
+              "WHERE start_date = '" + startDate + "' AND " + 
+                    "end_date = '" + endDate + "' AND " + 
+                    "floor_num = " + floorNumber + " AND " + 
+                    "room_num = " + roomNumber + " AND " + 
+                    "username = '" + this.username + "'";
+
+            ResultSet id_result = connection.executeQuery(query);
+
+            if (id_result.next()) {
+              query = 
+                "INSERT INTO bills " + 
+                "VALUES (" + id_result.getInt(Table.RESERVATION_ID) + ", 0, 'List of Services Ordered')";   
+              connection.executeUpdate(query);
+            }  
          }
 
          result.close();
