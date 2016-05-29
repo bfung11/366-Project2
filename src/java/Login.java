@@ -33,7 +33,7 @@ import javax.servlet.http.HttpSession;
 public class Login implements Serializable {
    DBConnection connection;
 
-   private String username;
+   private static String username;
    private String password;
    private UIInput loginUI;
       
@@ -75,17 +75,8 @@ public class Login implements Serializable {
    ) throws ValidatorException, SQLException {
       this.username = loginUI.getLocalValue().toString();
       this.password = value.toString();
-      String storedPassword = null;
-      
-      HttpSession session = (HttpSession) context.getExternalContext().getSession(true);
-      session.setAttribute("user", this.username);
-      //System.out.println(session.);
-
-      // TODO: check if user and password matches input
-      //Get password from DB
       
       try {
-         int userId = -1;
          String query = 
             "SELECT * " + 
             "FROM authentications " + 
@@ -108,9 +99,6 @@ public class Login implements Serializable {
                default:
                   break;
             }
-
-            userId = result.getInt("id");
-            session.setAttribute("userId", userId);
          }
          else {
             FacesMessage errorMessage = new FacesMessage("Wrong username or password!");
