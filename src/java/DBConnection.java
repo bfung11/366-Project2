@@ -39,8 +39,9 @@ public class DBConnection {
       return result;
    }
     
-   public void executeUpdate(String query) throws SQLException {
+   public ResultSet executeUpdate(String query) throws SQLException {
       Connection con = getConnection();
+      ResultSet generatedKeys;
 
       if (con == null) {
          throw new SQLException("Can't get database connection");
@@ -49,16 +50,18 @@ public class DBConnection {
 
       Statement statement = con.createStatement();
       statement.executeUpdate(query);
+      generatedKeys = statement.getGeneratedKeys();
       statement.close();
       con.commit();
       con.close();
+      return generatedKeys;
    }
 
    public Connection getConnection() {
       java.sql.Connection connection = null;
       try {
          connection = DriverManager.getConnection(
-            "jdbc:postgresql://cslvm74.csc.calpoly.edu:5432/bfung", "postgres","bfung");
+            "jdbc:postgresql://cslvm74.csc.calpoly.edu:5432/jzaman", "postgres","jzaman");
       } catch (SQLException e) {
          System.out.println("Connection Failed! Check output console");
          e.printStackTrace();

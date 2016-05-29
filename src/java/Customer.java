@@ -54,6 +54,7 @@ public class Customer {
                              "end_date >= '" + endDate + "'))";
          DBConnection connection = new DBConnection();
          ResultSet result = connection.executeQuery(query);
+         int reservationID = 0;
 
          if (result.next()) {
             int floorNumber = result.getInt(Table.FLOOR_NUMBER);
@@ -70,7 +71,17 @@ public class Customer {
                     "'" + startDate + "', " + 
                     "'" + endDate + "', " + 
                     "NULL, NULL)";
-            connection.executeUpdate(query);          
+            ResultSet generatedKeys = connection.executeUpdate(query);          
+            
+            if (generatedKeys.next()) {
+               reservationID = generatedKeys.getInt(Table.RESERVATION_ID);
+            }
+            
+            query = 
+               "INSERT INTO bills " +
+               "VALUES " +
+               "   (" + reservationID + ", 0, 'List of Services Ordered');";
+            connection.executeUpdate(query);
          }
 
          result.close();

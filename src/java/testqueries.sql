@@ -1,17 +1,12 @@
 --This file contains queries to test the query 
 --Create new employee account queries
-INSERT INTO authentications 
-VALUES
-   ('s1', 's1');
+INSERT INTO authentications
+VALUES ('staff', 'staff', 'staff'),
+       ('c1', 'c1', 'customer');
 
 INSERT INTO staff 
 VALUES 
-   ('s1', 'Darth', 'Vader');
-
---Create new customer account queries
-INSERT INTO authentications 
-VALUES
-   ('c1', 'c1');
+   ('staff', 'Darth', 'Vader');
 
 INSERT INTO credit_cards
 VALUES
