@@ -11,10 +11,11 @@ public class Reservation {
    private int reservationID;
    private String startDate;
    private String endDate;
-   private int viewType;
-   private int roomType;
    private int floorNumber;
    private int roomNumber;
+   private String viewType;
+   private String roomType;
+
 
    public void setReservationID(int reservationID) { this.reservationID = reservationID; }
    public int getReservationID() { return reservationID; }
@@ -26,8 +27,8 @@ public class Reservation {
    public int getFloorNumber() { return floorNumber; }
    public void setRoomNumber(int roomNumber) { this.roomNumber = roomNumber; }
    public int getRoomNumber() { return roomNumber; }
-   public void setViewType(int viewType) { this.viewType = viewType; }
-   public int getViewType() { return viewType; }
-   public void setRoomType(int roomType) { this.roomType = roomType; }
-   public int getRoomType() { return roomType; }
+   public void setViewType(String viewType) { this.viewType = viewType; }
+   public String getViewType() { return viewType; }
+   public void setRoomType(String roomType) { this.roomType = roomType; }
+   public String getRoomType() { return roomType; }
 }
