@@ -38,7 +38,7 @@ public class Admin {
    public void setRoomPrice(int price) { this.price = price; }
    public int getRoomPrice() { return price; }
 
-   public void updatePassword() {
+   public String updatePassword() {
       try {
          DBConnection connection = new DBConnection();
          String query = "UPDATE authentications " + 
@@ -49,9 +49,10 @@ public class Admin {
       catch (Exception e) {
          e.printStackTrace();
       }
+      return "admin";
    }
 
-   public void createStaff() {
+   public String createStaff() {
       try {
          DBConnection connection = new DBConnection();
          String authQuery = "INSERT INTO authentications " + 
@@ -68,9 +69,11 @@ public class Admin {
       catch (Exception e) {
          e.printStackTrace();
       }
+      
+      return "admin";
    }
 
-   public void addRoomPrice() throws Exception {
+   public String addRoomPrice() throws Exception {
       try {
          if (!isEndDateBeforeStartDate()) {
             throw new Exception("End date must be after start date");
@@ -113,7 +116,9 @@ public class Admin {
       }
       catch (Exception e) {
          e.printStackTrace();
-      }   
+      }
+      
+      return "admin";
    }
 
    private boolean isRoomOnFloor() {
