@@ -32,7 +32,7 @@ public class Staff {
       }
    }
 
-   public void checkCustomerOut() {
+   public String checkCustomerOut() {
       DBConnection connection = new DBConnection();
       ResultSet results;
       LocalDate startDate, endDate;
@@ -86,6 +86,7 @@ public class Staff {
       }
       
       //TODO : Print out customer bill
+      return "bill";
    }
    
    public void addCharges() {

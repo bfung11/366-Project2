@@ -34,6 +34,11 @@
         <managed-bean-class>Customer</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>
     </managed-bean>
+    <managed-bean>
+        <managed-bean-name>login</managed-bean-name>
+        <managed-bean-class>Login</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+    </managed-bean>
     <navigation-rule>
         <from-view-id>
             /index.xhtml
@@ -46,7 +51,18 @@
             <from-outcome>register</from-outcome>
             <to-view-id>register.xhtml</to-view-id>
         </navigation-case>
+    </navigation-rule>
+    
+    <navigation-rule>
+        <from-view-id>
+            /checkOut.xhtml
+        </from-view-id>
+        <navigation-case>
+            <from-outcome>bill</from-outcome>
+            <to-view-id>bill.xhtml</to-view-id>
+        </navigation-case>
     </navigation-rule> 
+    
     <navigation-rule>
         <from-view-id>
             /admin.xhtml
