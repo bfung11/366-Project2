@@ -16,4 +16,6 @@ public class Table {
    public final static String ROOM_NUMBER = "room_num";
    public final static String ROOM_TYPE = "room_type";
    public final static String VIEW_TYPE = "view_type";
+   public final static String TOTAL = "total";
+   public final static String DESCRIPTION = "description";
 }
