@@ -30,7 +30,9 @@ public class Customer {
    public void setEndDate(String date) { endDate = date; }
    public String getEndDate() { return endDate; }
 
-   public void makeReservation() {
+   public String makeReservation() {
+      String page = "reservationNotSuccessful";
+
       try {
          String query = 
             "SELECT RO.floor_num, RO.room_num " + 
@@ -88,7 +90,9 @@ public class Customer {
                 "INSERT INTO bills " + 
                 "VALUES (" + id_result.getInt(Table.RESERVATION_ID) + ", 0, 'List of Services Ordered')";   
               connection.executeUpdate(query);
-            }  
+            }
+
+            page = "reservationSuccessful";
          }
 
          result.close();
@@ -96,6 +100,8 @@ public class Customer {
       catch (Exception e) {
          e.printStackTrace();
       }
+
+      return page;
    }
 
    public ArrayList<Reservation> checkReservations() {
