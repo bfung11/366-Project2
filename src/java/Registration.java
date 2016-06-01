@@ -38,7 +38,7 @@ public class Registration {
    public void setExpirationDate(String expirationDate) { this.expirationDate = expirationDate; }
    public String getExpirationDate() { return expirationDate; }
 
-   public void createCustomer() {
+   public String createCustomer() {
       try {
          DBConnection connection = new DBConnection();
          String query = 
@@ -64,5 +64,7 @@ public class Registration {
       catch (Exception e) {
          e.printStackTrace();
       }
+      
+      return "index";
    }
 }
