@@ -187,6 +187,7 @@ public class Staff {
             bill.setReservationID(reservationID);
             bill.setTotal(results.getInt(Table.TOTAL));
             bill.setDescription(results.getString(Table.DESCRIPTION));
+            System.out.println(bill.getDescription());
             list.add(bill);
          }
       }
