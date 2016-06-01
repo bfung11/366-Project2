@@ -16,6 +16,6 @@ public class Bill {
    public int getReservationID() { return reservationID; }
    public void setTotal(int total) { this.total = total; }
    public int getTotal() { return total; }
-   public void setDescription(String description) { description = description; }
+   public void setDescription(String description) { this.description = description; }
    public String getDescription() { return description; }
 }
