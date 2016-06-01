@@ -173,7 +173,8 @@ VALUES
 --Default add admin
 INSERT INTO authentications
 VALUES ('admin', 'admin', 'admin'),
-       ('customer', 'customer', 'customer');
+       ('customer', 'customer', 'customer'),
+       ('staff', 'staff', 'staff');
 
 --Initialize room prices
 INSERT INTO room_prices (floor_num, 
