@@ -84,23 +84,6 @@ public class Staff {
          e.printStackTrace();
       }
       
-      //Get bill information
-      try {
-         String query = 
-            "SELECT total, description " +
-            "FROM bills " +
-            "WHERE reservation_id = " + reservationID;
-
-         results = connection.executeQuery(query);
-         while (results.next()) {
-            total = results.getInt(1);
-            description = results.getString(2);
-         }
-      }
-      catch (Exception e) {
-         e.printStackTrace();
-      }
-      
       //TODO : Print out customer bill
    }
    
@@ -183,5 +166,32 @@ public class Staff {
       catch (Exception e) {
          e.printStackTrace();
       }
+   }
+
+   public ArrayList<Bill> viewBill() {
+      ArrayList<Bill> list = new ArrayList<Bill>();
+
+      try {
+         String query = 
+            "SELECT total, description " +
+            "FROM bills " +
+            "WHERE reservation_id = " + reservationID;
+
+         DBConnection connection = new DBConnection();
+         ResultSet results = connection.executeQuery(query);
+
+         if (results.next()) {
+            Bill bill = new Bill();
+            bill.setReservationID(reservationID);
+            bill.setTotal(results.getInt(Table.TOTAL));
+            bill.setDescription(results.getString(Table.DESCRIPTION));
+            list.add(bill);
+         }
+      }
+      catch (Exception e) {
+         e.printStackTrace();
+      }
+
+      return list;
    }
 }

@@ -9,13 +9,13 @@ import java.sql.*;
 
 public class Bill {
    private int reservationID;
-   private int price;
+   private int total;
    private String description;
 
    public void setReservationID(int reservationID) { this.reservationID = reservationID; }
    public int getReservationID() { return reservationID; }
-   public void setPrice(int price) { this.price = price; }
-   public int getPrice() { return price; }
+   public void setTotal(int total) { this.total = total; }
+   public int getTotal() { return total; }
    public void setDescription(String description) { description = description; }
    public String getDescription() { return description; }
 }
