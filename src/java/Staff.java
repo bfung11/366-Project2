@@ -12,12 +12,19 @@ import java.sql.*;
 public class Staff {
    private int reservationID;
    private String service;
-
+   private String startDate;
+   private String endDate;
+   
    public void setReservationID(int reservationID) { this.reservationID = reservationID; }
    public int getReservationID() { return reservationID; }
    public void setService(String service) { this.service = service; }
    public String getService() { return service; }
-
+   
+   public void setStartDate(String date) {this.startDate = date;}
+   public String getStartDate(){return this.startDate;};
+   public void setEndDate(String date) {this.endDate = date;}
+   public String getEndDate(){return this.endDate;}
+   
    public String checkCustomerIn() {
       try {
          String query = 
