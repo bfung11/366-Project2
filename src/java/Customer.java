@@ -167,7 +167,7 @@ public class Customer {
       System.out.println("login: " + login.getUsername());
    }
 
-   public void cancelReservations() {
+   public String cancelReservations() {
       try {
          String query = 
             "DELETE FROM bills " + 
@@ -183,5 +183,7 @@ public class Customer {
       catch (Exception e) {
          e.printStackTrace();
       }
+      
+      return "customer";
    }
 }

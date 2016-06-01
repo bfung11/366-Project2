@@ -18,7 +18,7 @@ public class Staff {
    public void setService(String service) { this.service = service; }
    public String getService() { return service; }
 
-   public void checkCustomerIn() {
+   public String checkCustomerIn() {
       try {
          String query = 
             "UPDATE reservations " + 
@@ -30,6 +30,8 @@ public class Staff {
       catch (Exception e) {
          e.printStackTrace();
       }
+      
+      return "staff";
    }
 
    public String checkCustomerOut() {
@@ -89,7 +91,7 @@ public class Staff {
       return "bill";
    }
    
-   public void addCharges() {
+   public String addCharges() {
       // TODO : Add queries
       // TODO : Add to description of bill
       DBConnection connection = new DBConnection();
@@ -127,6 +129,8 @@ public class Staff {
       catch (Exception e) {
          e.printStackTrace();
       }
+      
+      return "staff";
    }
    
    private int getRoomPriceForDay(LocalDate date, int roomNum) {
