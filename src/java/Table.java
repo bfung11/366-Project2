@@ -18,4 +18,5 @@ public class Table {
    public final static String VIEW_TYPE = "view_type";
    public final static String TOTAL = "total";
    public final static String DESCRIPTION = "description";
+   public final static String PRICE = "price";
 }

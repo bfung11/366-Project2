@@ -18,14 +18,18 @@
                 
                 Service : <h:inputText value="#{staff.service}" required ="true"
                                    requiredMessage="Your must enter a service!"
-                                   id="serve"/>
+                                   id="service"/>
+                <h:message for="service" style="color:red;margin:8px;"/>
+
                 Start Date : <h:inputText value="#{staff.startDate}" required ="true"
                                    requiredMessage="Your must enter a start date!"
-                                   id="serve"/>
+                                   id="startDate"/>
+                <h:message for="startDate" style="color:red;margin:8px;"/>
+
                 End Date : <h:inputText value="#{staff.endDate}" required ="true"
-                                   requiredMessage="Your must enter a end date!"
-                                   id="serve"/>
-                <h:message for="serve" style="color:red;margin:8px;"/>
+                                   requiredMessage="Your must enter an end date!"
+                                   id="endDate"/>
+                <h:message for="endDate" style="color:red;margin:8px;"/>
             </h:panelGrid>
             <h:panelGrid>
                 <h:commandButton value="Go" action="#{staff.addCharges()}"/>
