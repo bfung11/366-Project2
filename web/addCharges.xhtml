@@ -17,7 +17,13 @@
                 <h:message for="resId" style="color:red;margin:8px;"/>
                 
                 Service : <h:inputText value="#{staff.service}" required ="true"
-                                   requiredMessage="Your must enter a username!"
+                                   requiredMessage="Your must enter a service!"
+                                   id="serve"/>
+                Start Date : <h:inputText value="#{staff.startDate}" required ="true"
+                                   requiredMessage="Your must enter a start date!"
+                                   id="serve"/>
+                End Date : <h:inputText value="#{staff.endDate}" required ="true"
+                                   requiredMessage="Your must enter a end date!"
                                    id="serve"/>
                 <h:message for="serve" style="color:red;margin:8px;"/>
             </h:panelGrid>
