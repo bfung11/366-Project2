@@ -19,7 +19,6 @@ public class Staff {
    public int getReservationID() { return reservationID; }
    public void setService(String service) { this.service = service; }
    public String getService() { return service; }
-   
    public void setStartDate(String date) {this.startDate = date;}
    public String getStartDate(){return this.startDate;};
    public void setEndDate(String date) {this.endDate = date;}
@@ -99,13 +98,10 @@ public class Staff {
    }
    
    public String addCharges() {
-      // TODO : Add queries
-      // TODO : Add to description of bill
       DBConnection connection = new DBConnection();
       ResultSet results;
       int price = 0;
       
-      //Get service price from name
       try {
          String query = 
             "SELECT price " +
@@ -114,24 +110,31 @@ public class Staff {
             "AND   start_date <= '" + LocalDate.now().toString() + "' " +
             "AND   end_date >= '" + LocalDate.now().toString() + "'";
 
-
          results = connection.executeQuery(query);
-         while (results.next()) {
-            price = results.getInt(1);
+         if (results.next()) {
+            price = results.getInt(Table.PRICE);
          }
-      }
-      catch (Exception e) {
-         e.printStackTrace();
-      }
-      
-      //Add service price and description to bill
-      try {
-         String query = 
-            "UPDATE bills " +
-            "SET total = total + " + price + ", " +
-               "description = description || E'\\n" + service + " - $" + price + "' " +
-            "WHERE reservation_id = " + reservationID;
-         connection.executeUpdate(query);
+
+         LocalDate aStartDate = LocalDate.parse(startDate);
+         LocalDate anEndDate = LocalDate.parse(endDate);
+
+         while (!aStartDate.equals(anEndDate)) {
+            query = 
+               "INSERT INTO bills " +
+               "VALUES (DEFAULT, " + 
+                            reservationID + ", " +
+                            "'" + aStartDate.toString() + "', " +
+                            price + ", " +
+                            "'" + service + "')";
+            connection.executeUpdate(query);
+            aStartDate = aStartDate.plusDays(1);
+            System.out.println(aStartDate.toString());
+         }
+         // query = 
+         //    "UPDATE bills " +
+         //    "SET total = total + " + price + ", " +
+         //       "description = description || E'\\n" + service + " - $" + price + "' " +
+         //    "WHERE reservation_id = " + reservationID;
       }
       catch (Exception e) {
          e.printStackTrace();
