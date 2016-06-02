@@ -118,6 +118,9 @@ public class Staff {
          LocalDate aStartDate = LocalDate.parse(startDate);
          LocalDate anEndDate = LocalDate.parse(endDate);
 
+         // Adding one day so that the equals also covers the last day
+         anEndDate = anEndDate.plusDays(1);
+
          while (!aStartDate.equals(anEndDate)) {
             query = 
                "INSERT INTO bills " +
@@ -128,13 +131,7 @@ public class Staff {
                             "'" + service + "')";
             connection.executeUpdate(query);
             aStartDate = aStartDate.plusDays(1);
-            System.out.println(aStartDate.toString());
          }
-         // query = 
-         //    "UPDATE bills " +
-         //    "SET total = total + " + price + ", " +
-         //       "description = description || E'\\n" + service + " - $" + price + "' " +
-         //    "WHERE reservation_id = " + reservationID;
       }
       catch (Exception e) {
          e.printStackTrace();
