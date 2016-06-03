@@ -74,23 +74,23 @@ public class Customer {
                     "NULL, NULL)";
             connection.executeUpdate(query);
 
-            query = 
-              "SELECT reservation_id " + 
-              "FROM reservations " + 
-              "WHERE start_date = '" + startDate + "' AND " + 
-                    "end_date = '" + endDate + "' AND " + 
-                    "floor_num = " + floorNumber + " AND " + 
-                    "room_num = " + roomNumber + " AND " + 
-                    "username = '" + this.username + "'";
+            // query = 
+            //   "SELECT reservation_id " + 
+            //   "FROM reservations " + 
+            //   "WHERE start_date = '" + startDate + "' AND " + 
+            //         "end_date = '" + endDate + "' AND " + 
+            //         "floor_num = " + floorNumber + " AND " + 
+            //         "room_num = " + roomNumber + " AND " + 
+            //         "username = '" + this.username + "'";
 
-            ResultSet id_result = connection.executeQuery(query);
+            // ResultSet id_result = connection.executeQuery(query);
 
-            if (id_result.next()) {
-              query = 
-                "INSERT INTO bills " + 
-                "VALUES (" + id_result.getInt(Table.RESERVATION_ID) + ", 0, 'List of Services Ordered')";   
-              connection.executeUpdate(query);
-            }
+            // if (id_result.next()) {
+            //   query = 
+            //     "INSERT INTO bills " + 
+            //     "VALUES (" + id_result.getInt(Table.RESERVATION_ID) + ", 0, 'Room Cost')";   
+            //   connection.executeUpdate(query);
+            // }
 
             page = "reservationSuccessful";
          }

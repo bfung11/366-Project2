@@ -202,36 +202,45 @@ public class Staff {
                   "WHERE reservation_id = " + reservationID + " " +
                   "AND bill_date = '" + aStartDate.toString() + "'";
                ResultSet billResult = connection.executeQuery(billQuery);
+               String billDate = "";
                while (billResult.next()) {
+                  billDate = billResult.getDate(Table.BILL_DATE).toString();
                   Bill bill = new Bill();
                   bill.setReservationID(reservationID);
-                  bill.setBillDate(billResult.getDate(Table.BILL_DATE).toString());
+                  bill.setBillDate(billDate);
                   bill.setPrice(billResult.getInt(Table.PRICE));
                   bill.setServiceName(billResult.getString(Table.SERVICE_NAME));
                   list.add(bill);
                }
 
                String subtotalQuery =
-                  "SELECT sum(price) AS sum" +
+                  "SELECT sum(price) AS sum " +
                   "FROM bills " +
                   "WHERE reservation_id = " + reservationID + " " +
                   "AND bill_date = '" + aStartDate.toString() + "'";
                ResultSet subtotalResult = connection.executeQuery(subtotalQuery);
                if (subtotalResult.next()) {
                   Bill bill = new Bill();
-                  bill.setServiceName(subtotalResult.getString(Table.SUM));
+                  bill.setReservationID(reservationID);
+                  bill.setBillDate(billDate);
+                  bill.setServiceName("Subtotal");
+                  bill.setPrice(subtotalResult.getInt(Table.SUM));
                   list.add(bill);
                }
+
+               aStartDate = aStartDate.plusDays(1);
             }
 
             String totalQuery =
-               "SELECT sum(price) AS sum" +
+               "SELECT sum(price) AS sum " +
                "FROM bills " +
                "WHERE reservation_id = " + reservationID;
             ResultSet totalResult = connection.executeQuery(totalQuery);
             if (totalResult.next()) {
                Bill bill = new Bill();
-               bill.setServiceName(totalResult.getString(Table.SUM));
+               bill.setReservationID(reservationID);
+               bill.setServiceName("Total");
+               bill.setPrice(totalResult.getInt(Table.SUM));
                list.add(bill);
             }
          }
