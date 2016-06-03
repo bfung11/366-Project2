@@ -64,14 +64,14 @@ public class Staff {
       //Get date range of reservation
       try {
          String query = 
-            "SELECT start_date, end_date, room_num " +
+            "SELECT * " +
             "FROM reservations " +
             "WHERE reservation_id = " + reservationID;
 
          results = connection.executeQuery(query);
          while (results.next()) {
             startDate = LocalDate.parse(results.getString(Table.START_DATE));
-            endDate = LocalDate.parse(results.getString(Table.END_DATE));
+            endDate = LocalDate.parse(results.getString(Table.CHECK_OUT_DATE));
             roomNum = results.getInt(Table.ROOM_NUMBER);
             
             //Set end date 1 day later so loop will include end date
@@ -79,11 +79,8 @@ public class Staff {
             
             //Add room charges to bill for all dates in range of reservation
             while (startDate.isBefore(endDate)) {
-               //Get price of room on this day
                price = getRoomPriceForDay(startDate, roomNum);
-               //Add price to bill
-               addRoomPriceToBill(price);
-               //Advance day
+               addRoomPriceToBill(startDate, price);
                startDate = startDate.plusDays(1);
             }
             
@@ -95,6 +92,47 @@ public class Staff {
       
       //TODO : Print out customer bill
       return "bill";
+   }
+
+   private int getRoomPriceForDay(LocalDate date, int roomNum) {
+      DBConnection connection = new DBConnection();
+      ResultSet results;
+      int price = 0;
+      
+      try {
+         String query = 
+            "SELECT max(price) " +
+            "FROM room_prices " +
+            "WHERE start_date <= '" + date + "' " +
+            "AND   end_date >= '" + date + "' " +
+            "AND   room_num = " + roomNum;
+
+
+         results = connection.executeQuery(query);
+         while (results.next()) {
+            price = results.getInt(1);
+         }
+      }
+      catch (Exception e) {
+         e.printStackTrace();
+      }
+      return price;
+   }
+
+   private void addRoomPriceToBill(LocalDate startDate, int price) {
+      DBConnection connection = new DBConnection();
+      
+      try {
+         String query = 
+            "INSERT INTO bills " +
+            "VALUES (DEFAULT, " + reservationID + ", " +
+                                  "'" + startDate.toString() + "', " + 
+                                  price + ", 'Room Price')";
+         connection.executeUpdate(query);
+      }
+      catch (Exception e) {
+         e.printStackTrace();
+      }
    }
    
    public String addCharges() {
@@ -139,67 +177,63 @@ public class Staff {
       
       return "staff";
    }
-   
-   private int getRoomPriceForDay(LocalDate date, int roomNum) {
-      DBConnection connection = new DBConnection();
-      ResultSet results;
-      int price = 0;
-      
-      try {
-         String query = 
-            "SELECT max(price) " +
-            "FROM room_prices " +
-            "WHERE start_date <= '" + date + "' " +
-            "AND   end_date >= '" + date + "' " +
-            "AND   room_num = " + roomNum;
-
-
-         results = connection.executeQuery(query);
-         while (results.next()) {
-            price = results.getInt(1);
-         }
-      }
-      catch (Exception e) {
-         e.printStackTrace();
-      }
-      return price;
-   }
-   
-   private void addRoomPriceToBill(int price) {
-      DBConnection connection = new DBConnection();
-      
-      try {
-         String query = 
-            "UPDATE bills " +
-            "SET total = total + " + price + " "  +
-            "WHERE reservation_id = " + reservationID;
-
-         connection.executeUpdate(query);
-      }
-      catch (Exception e) {
-         e.printStackTrace();
-      }
-   }
 
    public ArrayList<Bill> viewBill() {
       ArrayList<Bill> list = new ArrayList<Bill>();
 
       try {
-         String query = 
-            "SELECT total, description " +
-            "FROM bills " +
+         String dateQuery = 
+            "SELECT start_date, end_date " +
+            "FROM reservations " +
             "WHERE reservation_id = " + reservationID;
-
          DBConnection connection = new DBConnection();
-         ResultSet results = connection.executeQuery(query);
+         ResultSet dateResult = connection.executeQuery(dateQuery);
 
-         if (results.next()) {
-            Bill bill = new Bill();
-            bill.setReservationID(reservationID);
-            bill.setTotal(results.getInt(Table.TOTAL));
-            bill.setDescription(results.getString(Table.DESCRIPTION));
-            System.out.println(bill.getDescription());
-            list.add(bill);
+         if (dateResult.next()) {
+            LocalDate aStartDate = LocalDate.parse(dateResult.getDate(Table.START_DATE).toString());
+            LocalDate anEndDate = LocalDate.parse(dateResult.getDate(Table.END_DATE).toString());
+
+            anEndDate = anEndDate.plusDays(1);
+            while (!aStartDate.equals(anEndDate)) {
+
+               String billQuery = 
+                  "SELECT * " +
+                  "FROM bills " +
+                  "WHERE reservation_id = " + reservationID + " " +
+                  "AND bill_date = '" + aStartDate.toString() + "'";
+               ResultSet billResult = connection.executeQuery(billQuery);
+               while (billResult.next()) {
+                  Bill bill = new Bill();
+                  bill.setReservationID(reservationID);
+                  bill.setBillDate(billResult.getDate(Table.BILL_DATE).toString());
+                  bill.setPrice(billResult.getInt(Table.PRICE));
+                  bill.setService(billResult.getString(Table.SERVICE));
+                  list.add(bill);
+               }
+
+               String subtotalQuery =
+                  "SELECT sum(price) AS sum" +
+                  "FROM bills " +
+                  "WHERE reservation_id = " + reservationID + " " +
+                  "AND bill_date = '" + aStartDate.toString() + "'";
+               ResultSet subtotalResult = connection.executeQuery(subtotalQuery);
+               if (subtotalResult.next()) {
+                  Bill bill = new Bill();
+                  bill.setService(subtotalResult.getString(Table.SUM));
+                  list.add(bill);
+               }
+            }
+
+            String totalQuery =
+               "SELECT sum(price) AS sum" +
+               "FROM bills " +
+               "WHERE reservation_id = " + reservationID;
+            ResultSet totalResult = connection.executeQuery(totalQuery);
+            if (totalResult.next()) {
+               Bill bill = new Bill();
+               bill.setService(totalResult.getString(Table.SUM));
+               list.add(bill);
+            }
          }
       }
       catch (Exception e) {
