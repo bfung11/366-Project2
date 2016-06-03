@@ -95,13 +95,14 @@ CREATE TABLE reservations (
 
 CREATE TABLE bills (
    PRIMARY KEY (id),
-   id             SERIAL,
-   reservation_id INTEGER,
-   bill_date      DATE,
-   price          INTEGER,
-   description    TEXT,
-                  FOREIGN KEY (reservation_id) REFERENCES reservations(reservation_id),
-                  CONSTRAINT positive_total CHECK (price >= 0)
+   id              SERIAL,
+   reservation_id  INTEGER,
+   bill_date       DATE,
+   price           INTEGER,
+   service_name    TEXT,
+                   FOREIGN KEY (reservation_id) REFERENCES reservations(reservation_id),
+                   FOREIGN KEY (service_name) REFERENCES services(service_name),
+                   CONSTRAINT positive_total CHECK (price >= 0)
 );
 
 --Initialize rooms table
