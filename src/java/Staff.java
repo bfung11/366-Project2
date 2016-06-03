@@ -207,7 +207,7 @@ public class Staff {
                   bill.setReservationID(reservationID);
                   bill.setBillDate(billResult.getDate(Table.BILL_DATE).toString());
                   bill.setPrice(billResult.getInt(Table.PRICE));
-                  bill.setService(billResult.getString(Table.SERVICE));
+                  bill.setServiceName(billResult.getString(Table.SERVICE_NAME));
                   list.add(bill);
                }
 
@@ -219,7 +219,7 @@ public class Staff {
                ResultSet subtotalResult = connection.executeQuery(subtotalQuery);
                if (subtotalResult.next()) {
                   Bill bill = new Bill();
-                  bill.setService(subtotalResult.getString(Table.SUM));
+                  bill.setServiceName(subtotalResult.getString(Table.SUM));
                   list.add(bill);
                }
             }
@@ -231,7 +231,7 @@ public class Staff {
             ResultSet totalResult = connection.executeQuery(totalQuery);
             if (totalResult.next()) {
                Bill bill = new Bill();
-               bill.setService(totalResult.getString(Table.SUM));
+               bill.setServiceName(totalResult.getString(Table.SUM));
                list.add(bill);
             }
          }

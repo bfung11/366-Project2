@@ -17,7 +17,8 @@ public class Table {
    public final static String ROOM_NUMBER = "room_num";
    public final static String ROOM_TYPE = "room_type";
    public final static String VIEW_TYPE = "view_type";
-   public final static String TOTAL = "total";
-   public final static String DESCRIPTION = "description";
+   public final static String BILL_DATE = "bill_date";
    public final static String PRICE = "price";
+   public final static String SERVICE_NAME = "service_name";
+   public final static String SUM = "sum";
 }
