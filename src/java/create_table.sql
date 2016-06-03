@@ -101,7 +101,6 @@ CREATE TABLE bills (
    price           INTEGER,
    service_name    TEXT,
                    FOREIGN KEY (reservation_id) REFERENCES reservations(reservation_id),
-                   FOREIGN KEY (service_name) REFERENCES services(service_name),
                    CONSTRAINT positive_total CHECK (price >= 0)
 );
 

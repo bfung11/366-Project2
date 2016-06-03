@@ -40,46 +40,34 @@ public class Staff {
       return "staff";
    }
 
-   public String checkCustomerOut() {
-      DBConnection connection = new DBConnection();
-      ResultSet results;
-      LocalDate startDate, endDate;
-      int price;
-      int roomNum;
-      int total;
-      String description;
-      
-      //Set checkout date
+   public String checkCustomerOut() {      
       try {
          String query = 
             "UPDATE reservations " + 
             "SET check_out_date = '" + LocalDate.now().toString() + "' " +
             "WHERE reservation_id = " + reservationID;
+         DBConnection connection = new DBConnection();
          connection.executeUpdate(query);
-      }
-      catch (Exception e) {
-         e.printStackTrace();
-      }
       
-      //Get date range of reservation
-      try {
-         String query = 
+         query = 
             "SELECT * " +
             "FROM reservations " +
             "WHERE reservation_id = " + reservationID;
 
-         results = connection.executeQuery(query);
+         ResultSet results = connection.executeQuery(query);
          while (results.next()) {
-            startDate = LocalDate.parse(results.getString(Table.START_DATE));
-            endDate = LocalDate.parse(results.getString(Table.CHECK_OUT_DATE));
-            roomNum = results.getInt(Table.ROOM_NUMBER);
-            
+            LocalDate startDate = LocalDate.parse(results.getString(Table.START_DATE));
+            LocalDate endDate = LocalDate.parse(results.getString(Table.CHECK_OUT_DATE));
+            int roomNum = results.getInt(Table.ROOM_NUMBER);
+            System.out.println("start date: " + startDate.toString());
+            System.out.println("end date: " + endDate.toString());
+
             //Set end date 1 day later so loop will include end date
             endDate = endDate.plusDays(1);
             
             //Add room charges to bill for all dates in range of reservation
             while (startDate.isBefore(endDate)) {
-               price = getRoomPriceForDay(startDate, roomNum);
+               int price = getRoomPriceForDay(startDate, roomNum);
                addRoomPriceToBill(startDate, price);
                startDate = startDate.plusDays(1);
             }
@@ -159,7 +147,7 @@ public class Staff {
          // Adding one day so that the equals also covers the last day
          anEndDate = anEndDate.plusDays(1);
 
-         while (!aStartDate.equals(anEndDate)) {
+         while (aStartDate.isBefore(anEndDate)) {
             query = 
                "INSERT INTO bills " +
                "VALUES (DEFAULT, " + 
@@ -194,7 +182,7 @@ public class Staff {
             LocalDate anEndDate = LocalDate.parse(dateResult.getDate(Table.END_DATE).toString());
 
             anEndDate = anEndDate.plusDays(1);
-            while (!aStartDate.equals(anEndDate)) {
+            while (aStartDate.isBefore(anEndDate)) {
 
                String billQuery = 
                   "SELECT * " +
@@ -206,9 +194,9 @@ public class Staff {
                while (billResult.next()) {
                   billDate = billResult.getDate(Table.BILL_DATE).toString();
                   Bill bill = new Bill();
-                  bill.setReservationID(reservationID);
+                  bill.setReservationID(String.valueOf(reservationID));
                   bill.setBillDate(billDate);
-                  bill.setPrice(billResult.getInt(Table.PRICE));
+                  bill.setPrice(billResult.getString(Table.PRICE));
                   bill.setServiceName(billResult.getString(Table.SERVICE_NAME));
                   list.add(bill);
                }
@@ -221,10 +209,7 @@ public class Staff {
                ResultSet subtotalResult = connection.executeQuery(subtotalQuery);
                if (subtotalResult.next()) {
                   Bill bill = new Bill();
-                  bill.setReservationID(reservationID);
-                  bill.setBillDate(billDate);
-                  bill.setServiceName("Subtotal");
-                  bill.setPrice(subtotalResult.getInt(Table.SUM));
+                  bill.setSubtotal(subtotalResult.getString(Table.SUM));
                   list.add(bill);
                }
 
@@ -238,9 +223,7 @@ public class Staff {
             ResultSet totalResult = connection.executeQuery(totalQuery);
             if (totalResult.next()) {
                Bill bill = new Bill();
-               bill.setReservationID(reservationID);
-               bill.setServiceName("Total");
-               bill.setPrice(totalResult.getInt(Table.SUM));
+               bill.setTotal(totalResult.getString(Table.SUM));
                list.add(bill);
             }
          }
