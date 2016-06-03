@@ -15,12 +15,24 @@
                     #{bill.reservationID}
             </h:column>
             <h:column>
-                <f:facet name="header"> Total </f:facet>
-                    #{bill.total}
+                <f:facet name="header"> Bill Date </f:facet>
+                    #{bill.billDate}
             </h:column>
             <h:column>
-                <f:facet name="header"> Description</f:facet>
-                    #{bill.description}
+                <f:facet name="header"> Service </f:facet>
+                    #{bill.serviceName}
+            </h:column>
+            <h:column>
+                <f:facet name="header"> Price</f:facet>
+                    #{bill.price}
+            </h:column>
+            <h:column>
+                <f:facet name="header"> Subtotal</f:facet>
+                    #{bill.subtotal}
+            </h:column>
+            <h:column>
+                <f:facet name="header"> Total</f:facet>
+                    #{bill.total}
             </h:column>
         </h:dataTable>
     </h:body>

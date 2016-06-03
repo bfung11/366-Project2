@@ -95,13 +95,13 @@ CREATE TABLE reservations (
 
 CREATE TABLE bills (
    PRIMARY KEY (id),
-   id             SERIAL,
-   reservation_id INTEGER,
-   bill_date      DATE,
-   price          INTEGER,
-   description    TEXT,
-                  FOREIGN KEY (reservation_id) REFERENCES reservations(reservation_id),
-                  CONSTRAINT positive_total CHECK (price >= 0)
+   id              SERIAL,
+   reservation_id  INTEGER,
+   bill_date       DATE,
+   price           INTEGER,
+   service_name    TEXT,
+                   FOREIGN KEY (reservation_id) REFERENCES reservations(reservation_id),
+                   CONSTRAINT positive_total CHECK (price >= 0)
 );
 
 --Initialize rooms table
@@ -390,7 +390,12 @@ VALUES
    (DEFAULT, 57, '2016-12-05', 15, 'Wifi'),
    (DEFAULT, 58, '2016-12-05', 15, 'Wifi'),
    (DEFAULT, 59, '2016-12-05', 15, 'Wifi'),
-   (DEFAULT, 60, '2016-12-05', 15, 'Wifi');
+   (DEFAULT, 60, '2016-12-05', 15, 'Wifi'),
+   (DEFAULT, 1, '2016-12-03', 20, 'Room Service'),
+   (DEFAULT, 1, '2016-12-04', 20, 'Room Service'),
+   (DEFAULT, 1, '2016-12-05', 20, 'Room Service');
+
+
  
 
 
