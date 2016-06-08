@@ -8,15 +8,12 @@ import java.time.*;
 import java.sql.*;
 
 public class Bill {
-   private String reservationID;
    private String billDate;
    private String price;
    private String serviceName;
    private String subtotal;
    private String total;
 
-   public void setReservationID(String reservationID) { this.reservationID = reservationID; }
-   public String getReservationID() { return reservationID; }
    public void setBillDate(String billDate) { this.billDate = billDate; }
    public String getBillDate() { return billDate; }
    public void setPrice(String price) { this.price = price; }

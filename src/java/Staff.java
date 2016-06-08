@@ -136,7 +136,6 @@ public class Staff {
                while (billResult.next()) {
                   billDate = billResult.getDate(Table.BILL_DATE).toString();
                   Bill bill = new Bill();
-                  bill.setReservationID(String.valueOf(reservationID));
                   bill.setBillDate(billDate);
                   bill.setPrice(billResult.getString(Table.PRICE));
                   bill.setServiceName(billResult.getString(Table.SERVICE_NAME));
