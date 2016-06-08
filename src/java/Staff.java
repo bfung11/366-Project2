@@ -40,38 +40,46 @@ public class Staff {
       return "staff";
    }
 
-   public String checkCustomerOut() {      
+   public String checkCustomerOut() {  
       try {
          String query = 
-            "UPDATE reservations " + 
-            "SET check_out_date = '" + LocalDate.now().toString() + "' " +
+            "SELECT check_out_date " +
+            "FROM reservations " + 
             "WHERE reservation_id = " + reservationID;
          DBConnection connection = new DBConnection();
-         connection.executeUpdate(query);
-      
-         query = 
-            "SELECT * " +
-            "FROM reservations " +
-            "WHERE reservation_id = " + reservationID;
+         ResultSet hasBeenCheckedOut = connection.executeQuery(query);
 
-         ResultSet results = connection.executeQuery(query);
-         while (results.next()) {
-            LocalDate startDate = LocalDate.parse(results.getString(Table.START_DATE));
-            LocalDate endDate = LocalDate.parse(results.getString(Table.CHECK_OUT_DATE));
-            int roomNum = results.getInt(Table.ROOM_NUMBER);
-            System.out.println("start date: " + startDate.toString());
-            System.out.println("end date: " + endDate.toString());
+         if (!hasBeenCheckedOut.next()) {
+            query = 
+               "UPDATE reservations " + 
+               "SET check_out_date = '" + LocalDate.now().toString() + "' " +
+               "WHERE reservation_id = " + reservationID;
+            connection.executeUpdate(query);
+         
+            query = 
+               "SELECT * " +
+               "FROM reservations " +
+               "WHERE reservation_id = " + reservationID;
 
-            //Set end date 1 day later so loop will include end date
-            endDate = endDate.plusDays(1);
-            
-            //Add room charges to bill for all dates in range of reservation
-            while (startDate.isBefore(endDate)) {
-               int price = getRoomPriceForDay(startDate, roomNum);
-               addRoomPriceToBill(startDate, price);
-               startDate = startDate.plusDays(1);
+            ResultSet results = connection.executeQuery(query);
+            while (results.next()) {
+               LocalDate startDate = LocalDate.parse(results.getString(Table.START_DATE));
+               LocalDate endDate = LocalDate.parse(results.getString(Table.CHECK_OUT_DATE));
+               int roomNum = results.getInt(Table.ROOM_NUMBER);
+               System.out.println("start date: " + startDate.toString());
+               System.out.println("end date: " + endDate.toString());
+
+               //Set end date 1 day later so loop will include end date
+               endDate = endDate.plusDays(1);
+               
+               //Add room charges to bill for all dates in range of reservation
+               while (startDate.isBefore(endDate)) {
+                  int price = getRoomPriceForDay(startDate, roomNum);
+                  addRoomPriceToBill(startDate, price);
+                  startDate = startDate.plusDays(1);
+               }
+               
             }
-            
          }
       }
       catch (Exception e) {
