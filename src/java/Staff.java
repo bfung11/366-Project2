@@ -55,31 +55,6 @@ public class Staff {
                "SET check_out_date = '" + LocalDate.now().toString() + "' " +
                "WHERE reservation_id = " + reservationID;
             connection.executeUpdate(query);
-         
-            query = 
-               "SELECT * " +
-               "FROM reservations " +
-               "WHERE reservation_id = " + reservationID;
-
-            ResultSet results = connection.executeQuery(query);
-            while (results.next()) {
-               LocalDate startDate = LocalDate.parse(results.getString(Table.START_DATE));
-               LocalDate endDate = LocalDate.parse(results.getString(Table.CHECK_OUT_DATE));
-               int roomNum = results.getInt(Table.ROOM_NUMBER);
-               System.out.println("start date: " + startDate.toString());
-               System.out.println("end date: " + endDate.toString());
-
-               //Set end date 1 day later so loop will include end date
-               endDate = endDate.plusDays(1);
-               
-               //Add room charges to bill for all dates in range of reservation
-               while (startDate.isBefore(endDate)) {
-                  int price = getRoomPriceForDay(startDate, roomNum);
-                  addRoomPriceToBill(startDate, price);
-                  startDate = startDate.plusDays(1);
-               }
-               
-            }
          }
       }
       catch (Exception e) {
@@ -88,47 +63,6 @@ public class Staff {
       
       //TODO : Print out customer bill
       return "bill";
-   }
-
-   private int getRoomPriceForDay(LocalDate date, int roomNum) {
-      DBConnection connection = new DBConnection();
-      ResultSet results;
-      int price = 0;
-      
-      try {
-         String query = 
-            "SELECT max(price) " +
-            "FROM room_prices " +
-            "WHERE start_date <= '" + date + "' " +
-            "AND   end_date >= '" + date + "' " +
-            "AND   room_num = " + roomNum;
-
-
-         results = connection.executeQuery(query);
-         while (results.next()) {
-            price = results.getInt(1);
-         }
-      }
-      catch (Exception e) {
-         e.printStackTrace();
-      }
-      return price;
-   }
-
-   private void addRoomPriceToBill(LocalDate startDate, int price) {
-      DBConnection connection = new DBConnection();
-      
-      try {
-         String query = 
-            "INSERT INTO bills " +
-            "VALUES (DEFAULT, " + reservationID + ", " +
-                                  "'" + startDate.toString() + "', " + 
-                                  price + ", 'Room Price')";
-         connection.executeUpdate(query);
-      }
-      catch (Exception e) {
-         e.printStackTrace();
-      }
    }
    
    public String addCharges() {

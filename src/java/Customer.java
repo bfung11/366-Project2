@@ -34,6 +34,27 @@ public class Customer {
       String page = "reservationNotSuccessful";
 
       try {
+         ResultSet result = getRoom();
+
+         if (result.next()) {
+            bookRoom(result);
+            addAllRoomPriceToBill();
+
+            page = "reservationSuccessful";
+         }
+
+         result.close();
+      }
+      catch (Exception e) {
+         e.printStackTrace();
+      }
+
+      return page;
+   }
+
+   private ResultSet getRoom() {
+
+      try {
          String query = 
             "SELECT RO.floor_num, RO.room_num " + 
             "FROM rooms RO " + 
@@ -55,53 +76,128 @@ public class Customer {
                       "WHERE start_date <= '" + startDate + "' AND " + 
                              "end_date >= '" + endDate + "'))";
          DBConnection connection = new DBConnection();
-         ResultSet result = connection.executeQuery(query);
 
-         if (result.next()) {
-            int floorNumber = result.getInt(Table.FLOOR_NUMBER);
-            int roomNumber = result.getInt(Table.ROOM_NUMBER);
-
-            getUsername();
-            query = 
-               "INSERT INTO reservations " + 
-               "VALUES " + 
-                  "(DEFAULT, " + 
-                    "'" + this.username + "', " +
-                          floorNumber + ", " +
-                          roomNumber + ", " + 
-                    "'" + startDate + "', " + 
-                    "'" + endDate + "', " + 
-                    "NULL, NULL)";
-            connection.executeUpdate(query);
-
-            // query = 
-            //   "SELECT reservation_id " + 
-            //   "FROM reservations " + 
-            //   "WHERE start_date = '" + startDate + "' AND " + 
-            //         "end_date = '" + endDate + "' AND " + 
-            //         "floor_num = " + floorNumber + " AND " + 
-            //         "room_num = " + roomNumber + " AND " + 
-            //         "username = '" + this.username + "'";
-
-            // ResultSet id_result = connection.executeQuery(query);
-
-            // if (id_result.next()) {
-            //   query = 
-            //     "INSERT INTO bills " + 
-            //     "VALUES (" + id_result.getInt(Table.RESERVATION_ID) + ", 0, 'Room Cost')";   
-            //   connection.executeUpdate(query);
-            // }
-
-            page = "reservationSuccessful";
-         }
-
-         result.close();
+         return connection.executeQuery(query);
       }
       catch (Exception e) {
          e.printStackTrace();
       }
 
-      return page;
+      return null;
+   }
+
+   private void bookRoom(ResultSet result) {
+      try {
+         int floorNumber = result.getInt(Table.FLOOR_NUMBER);
+         int roomNumber = result.getInt(Table.ROOM_NUMBER);
+
+         getUsername();
+         String query = 
+            "INSERT INTO reservations " + 
+            "VALUES " + 
+               "(DEFAULT, " + 
+                 "'" + this.username + "', " +
+                       floorNumber + ", " +
+                       roomNumber + ", " + 
+                 "'" + startDate + "', " + 
+                 "'" + endDate + "', " + 
+                 "NULL, NULL)";
+         DBConnection connection = new DBConnection();
+         connection.executeUpdate(query);
+      }
+      catch (Exception e) {
+         e.printStackTrace();
+      }
+   }
+
+   private void addAllRoomPriceToBill() {
+      System.out.println("here");
+      try {
+         getLatestReservation();
+         String query = 
+            "SELECT * " +
+            "FROM reservations " +
+            "WHERE reservation_id = " + reservationID;
+         DBConnection connection = new DBConnection();
+         ResultSet results = connection.executeQuery(query);
+
+         while (results.next()) {
+            LocalDate startDate = LocalDate.parse(this.startDate);
+            LocalDate endDate = LocalDate.parse(this.endDate);
+            int roomNum = results.getInt(Table.ROOM_NUMBER);
+
+            //Set end date 1 day later so loop will include end date
+            endDate = endDate.plusDays(1);
+            
+            //Add room charges to bill for all dates in range of reservation
+            while (startDate.isBefore(endDate)) {
+               int price = getRoomPriceForDay(startDate, roomNum);
+               addRoomPriceToBill(startDate, price);
+               startDate = startDate.plusDays(1);
+            }
+         }
+      }
+      catch (Exception e) {
+         e.printStackTrace();
+      }
+   }
+
+   private void getLatestReservation() {
+      try {
+         String query = 
+            "SELECT max(reservation_id) as reservation_id " +
+            "FROM reservations";
+         DBConnection connection = new DBConnection();
+         ResultSet result = connection.executeQuery(query);
+
+         if (result.next()) {
+            reservationID = result.getInt(Table.RESERVATION_ID);
+         }
+      }
+      catch (Exception e) {
+         e.printStackTrace();
+      }
+   }
+
+   private int getRoomPriceForDay(LocalDate date, int roomNum) {
+      DBConnection connection = new DBConnection();
+      ResultSet results;
+      int price = 0;
+      
+      try {
+         String query = 
+            "SELECT max(price) " +
+            "FROM room_prices " +
+            "WHERE start_date <= '" + date + "' " +
+            "AND   end_date >= '" + date + "' " +
+            "AND   room_num = " + roomNum;
+
+
+         results = connection.executeQuery(query);
+         while (results.next()) {
+            price = results.getInt(1);
+         }
+      }
+      catch (Exception e) {
+         e.printStackTrace();
+      }
+      return price;
+   }
+
+   private void addRoomPriceToBill(LocalDate startDate, int price) {
+      DBConnection connection = new DBConnection();
+      
+      try {
+         String query = 
+            "INSERT INTO bills " +
+            "VALUES (DEFAULT, " + reservationID + ", " +
+                                  "'" + startDate.toString() + "', " + 
+                                  price + ", 'Room Price')";
+         connection.executeUpdate(query);
+      }
+      catch (Exception e) {
+         e.printStackTrace();
+      }
    }
 
    public ArrayList<Reservation> checkReservations() {
