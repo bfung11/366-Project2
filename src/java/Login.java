@@ -130,4 +130,9 @@ public class Login implements Serializable {
       HttpSession session = (HttpSession) context.getExternalContext().getSession(false);
       session.invalidate();
    }
+   
+   public String logout() {
+      this.invalidateUserSession();
+      return "index";
+   }
 }

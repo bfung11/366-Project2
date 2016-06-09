@@ -11,6 +11,9 @@
     <h:body>
         <!-- do YYYY-MM-DD -->
         <h:form>
+         <h:commandButton value = "Logout" action="#{login.logout()}"/>
+       </h:form>
+        <h:form>
             <h:panelGrid columns="3">
                 Reservation ID : <h:inputText value="#{customer.reservationID}" required ="true"
                                    requiredMessage="Your must enter a username!"

@@ -9,6 +9,9 @@
         <h1>View Reservations</h1>
     </h:head>
     <h:body>
+       <h:form>
+         <h:commandButton value = "Logout" action="#{login.logout()}"/>
+       </h:form>
       <h:dataTable value="#{customer.checkReservations()}" var="custReserve" border="1">
          
             <h:column>

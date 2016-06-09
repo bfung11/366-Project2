@@ -9,6 +9,9 @@
         <h1>Bill</h1>
     </h:head>
     <h:body>
+       <h:form>
+         <h:commandButton value = "Logout" action="#{login.logout()}"/>
+       </h:form>
       <h:dataTable value="#{staff.viewBill()}" var="bill" border="1">
             <h:column>
                 <f:facet name="header"> Bill Date </f:facet>
