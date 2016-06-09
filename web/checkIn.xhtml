@@ -9,6 +9,9 @@
         <h1>Check In Reservation</h1>
     </h:head>
     <h:body>
+       <h:form>
+         <h:commandButton value = "Logout" action="#{login.logout()}"/>
+       </h:form>
         <h:form>
             <h:panelGrid columns="3">
                 Reservation ID : <h:inputText value="#{staff.reservationID}" required ="true"
